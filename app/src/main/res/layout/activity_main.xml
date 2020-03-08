@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textSize="20sp"
+            android:textColor="@color/colorText"
+            android:gravity="left"
+            android:layout_marginTop="15dp"
+            >
+
+        </TextView>
+        <EditText
+            android:id="@+id/emailEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hiddenEmail"
+            android:inputType="text"
+            android:ems="15"
+            android:layout_marginRight="5dp"
+            >
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/passwordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:textSize="20sp"
+            android:textColor="@color/colorText"
+            android:gravity="left">
+
+        </TextView>
+        <EditText
+            android:id="@+id/passwordEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hiddenPassword"
+            android:inputType="textPassword"
+            android:ems="20"
+            >
+        </EditText>
+    </LinearLayout>
+    <Button
+        android:id="@+id/userSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/signIn"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorButtonText"
+        android:onClick="onSignInClicked"
+        >
+    </Button>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="right"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/userSignUp"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signUp"
+            android:textSize="15sp"
+            android:onClick="onSignUpClicked"
+            >
+        </TextView>
+
+        <TextView
+            android:id="@+id/userForget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgetPassword"
+            android:textSize="15sp"
+            android:onClick="onForgetClicked">
+        </TextView>
+
+        <TextView
+            android:id="@+id/userChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change"
+            android:textSize="15sp"
+            android:onClick="onSwitchLanguageClicked">
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>

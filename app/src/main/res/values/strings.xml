@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Ocat</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="passwordAgain">Password Again</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="verificationCode">Verification Code   </string>
+    <string name="sendCode">SEND CODE</string>
+    <string name="sendCodeAgain">SEND CODE Again</string>
+    <string name="currentEmail">Current Email</string>
+
+    <string name="sendCodeSuccess">Code Sent Successfully</string>
+    <string name="emailNull">Fail! Email Can\'t be Null</string>
+    <string name="passwordNull">Fail! Password Can\'t be Null</string>
+    <string name="passwordNotSame">Fail! Passwords Are Not Same</string>
+    <string name="operationSuccess">Operation Success</string>
+    <string name="somethingNull">Fail! There is Something Null</string>
+
+    <string name="hiddenUsername">Please Enter Your Username</string>
+    <string name="hiddenPassword">Please Enter Your Password</string>
+    <string name="hiddenPasswordAgain">Please Enter Your Password Again</string>
+    <string name="hiddenEmail">Please Enter Your Email</string>
+    <string name="hiddenVerificationCode">Please Enter Your Verification Code</string>
+
+    <string name="welcome">WELCOME</string>
+    <string name="personal">Personal Information</string>
+    <string name="signIn">SIGN IN</string>
+    <string name="signUp">Sign Up</string>
+    <string name="forgetPassword">Forget Password</string>
+    <string name="submit">SUBMIT</string>
+    <string name="cancel">CANCEL</string>
+    <string name="logOut">LOG OUT</string>
+    <string name="change">切换至中文版</string>
+
+    <string name="title_hotspots">Hotspots</string>
+    <string name="title_finance">Finance</string>
+    <string name="title_study">Study</string>
+    <string name="title_me">Me</string>
+    <string name="title_activity_app_bottom">AppBottomActivity</string>
+</resources>
+
