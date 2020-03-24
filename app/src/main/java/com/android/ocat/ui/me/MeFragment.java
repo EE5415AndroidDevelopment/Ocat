@@ -30,6 +30,7 @@ public class MeFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();

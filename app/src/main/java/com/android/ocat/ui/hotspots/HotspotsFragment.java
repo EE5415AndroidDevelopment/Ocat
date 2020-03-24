@@ -18,18 +18,13 @@ public class HotspotsFragment extends Fragment {
 
     private com.android.ocat.ui.hotspots.HotspotsViewModel hotspotsViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        hotspotsViewModel =
-                ViewModelProviders.of(this).get(com.android.ocat.ui.hotspots.HotspotsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_hotspots, container, false);
-        final TextView textView = root.findViewById(R.id.text_hotspots);
-        hotspotsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_hotspots, container, false);
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

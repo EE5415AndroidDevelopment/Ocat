@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="4"
+    android:padding="5dp">
+    <TableRow>
+        <TextView
+            android:id="@+id/category"
+            android:text="category"
+            android:layout_marginStart="10dp"
+            android:layout_column="1"
+            android:textSize="30sp"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:layout_height="50dp"
+            />
+
+        <TextView
+            android:layout_column="2"
+            android:id="@+id/inOut"
+            android:layout_marginStart="30dp"
+            android:gravity="end"
+            android:layout_gravity="center_vertical"
+            android:text="in"
+            android:textSize="20sp"
+            android:textColor="@color/colorText"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_column="3"
+            android:id="@+id/currencyCode"
+            android:layout_marginStart="20dp"
+            android:gravity="end"
+            android:layout_gravity="center_vertical"
+            android:text="code"
+            android:textSize="20sp"
+            android:textColor="@color/colorText"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_column="4"
+            android:id="@+id/currencyValue"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
+            android:layout_gravity="center_vertical"
+            android:text="0"
+            android:textSize="20sp"
+            android:textColor="@color/colorText"
+            >
+        </TextView>
+    </TableRow>
+
+</TableLayout>

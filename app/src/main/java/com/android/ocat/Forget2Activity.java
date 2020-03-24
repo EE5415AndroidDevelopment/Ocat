@@ -106,8 +106,17 @@ public class Forget2Activity extends AppCompatActivity {
     }
 
     public void onSendCodeClicked(View view) {
-        sendCodeUtil = new SendCodeUtil(Forget2Activity.this, email, Constant.CODE_METHOD_OLD, codeButton);
-        sendCodeUtil.sendCode();
+        // gain user input
+        String password = passwordEdit.getText().toString();
+        String password2 = password2Edit.getText().toString();
+        if (TextUtils.isEmpty(password) || TextUtils.isEmpty(password2)){
+            Toast.makeText(Forget2Activity.this, R.string.passwordNull, Toast.LENGTH_LONG).show();
+        } else if (!password.equals(password2)) {
+            Toast.makeText(Forget2Activity.this, R.string.passwordNotSame, Toast.LENGTH_LONG).show();
+        } else {
+            sendCodeUtil = new SendCodeUtil(Forget2Activity.this, email, Constant.CODE_METHOD_OLD, codeButton);
+            sendCodeUtil.sendCode();
+        }
     }
 
     public void onCancelClicked(View view) {

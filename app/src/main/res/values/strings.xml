@@ -32,11 +32,47 @@
     <string name="cancel">CANCEL</string>
     <string name="logOut">LOG OUT</string>
     <string name="change">切换至中文版</string>
+    <string name="add">ADD</string>
+    <string name="in">Income</string>
+    <string name="out">Expense</string>
 
     <string name="title_hotspots">Hotspots</string>
     <string name="title_finance">Finance</string>
     <string name="title_study">Study</string>
     <string name="title_me">Me</string>
     <string name="title_activity_app_bottom">AppBottomActivity</string>
+    <string name="daily_rate">Daily Rate</string>
+    <string name="detail_bill">Detail Bill</string>
+    <string name="my_bill">My Bill</string>
+    <string name="new_record">New Record</string>
+
+    <string-array name="countries_array">
+        <item>China</item>
+        <item>Hong Kong</item>
+        <item>Canada</item>
+        <item>Australia</item>
+        <item>United States</item>
+    </string-array>
+
+    <string-array name="currency_code">
+        <item>CNY</item>
+        <item>HKD</item>
+        <item>CAD</item>
+        <item>AUD</item>
+        <item>USD</item>
+    </string-array>
+
+    <string-array name="currency_rate">
+        <item>100</item>
+        <item>100</item>
+        <item>100</item>
+        <item>100</item>
+        <item>100</item>
+    </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
 

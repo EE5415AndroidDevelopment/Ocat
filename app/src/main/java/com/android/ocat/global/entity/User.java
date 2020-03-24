@@ -1,5 +1,8 @@
 package com.android.ocat.global.entity;
 
+/**
+ * User
+ */
 public class User {
         private Integer id;
         private String username;

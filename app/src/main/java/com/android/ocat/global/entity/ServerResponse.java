@@ -1,7 +1,7 @@
 package com.android.ocat.global.entity;
 
 /**
- * 负责后端向前端返回封装的json数据
+ * ServerResponse
  */
 
 public class ServerResponse<T> {
@@ -39,5 +39,14 @@ public class ServerResponse<T> {
 
     public void setMessages(String messages) {
         this.messages = messages;
+    }
+
+    @Override
+    public String toString() {
+        return "ServerResponse{" +
+                "status=" + status +
+                ", data=" + data +
+                ", messages='" + messages + '\'' +
+                '}';
     }
 }

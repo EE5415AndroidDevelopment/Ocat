@@ -29,6 +29,11 @@ public class SharedPreferenceUtil {
         editor.commit();
     }
 
+    public void putLong(String key, long value) {
+        editor.putLong(key, value);
+        editor.commit();
+    }
+
     public boolean getBoolean(String key) {
         return sharedPreferences.getBoolean(key, false);
     }
@@ -39,6 +44,10 @@ public class SharedPreferenceUtil {
 
     public String getString(String key) {
         return sharedPreferences.getString(key, "");
+    }
+
+    public Long getLong(String key) {
+        return sharedPreferences.getLong(key, 0);
     }
 
     public Object getObject(String key, Class clz) {

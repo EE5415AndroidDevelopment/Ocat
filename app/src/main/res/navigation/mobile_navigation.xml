@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_finance"
         android:name="com.android.ocat.ui.finance.FinanceFragment"
-        android:label="@string/title_finance"
+        android:label="@string/daily_rate"
         tools:layout="@layout/fragment_finance" />
 
     <fragment
@@ -28,4 +28,16 @@
         android:name="com.android.ocat.ui.me.MeFragment"
         android:label="@string/title_me"
         tools:layout="@layout/fragment_me" />
+
+    <fragment
+        android:id="@+id/navigation_bookKeeping"
+        android:name="com.android.ocat.ui.finance.BookKeepingFragment"
+        android:label="@string/my_bill"
+        tools:layout="@layout/fragment_book_keeping" />
+
+    <fragment
+        android:id="@+id/navigation_detailFinance"
+        android:name="com.android.ocat.ui.finance.DetailFinanceFragment"
+        android:label="@string/detail_bill"
+        tools:layout="@layout/fragment_detail_finance" />
 </navigation>

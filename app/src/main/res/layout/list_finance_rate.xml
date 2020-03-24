@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="3"
+    android:padding="5dp">
+    <TableRow>
+        <ImageView
+            android:layout_column="1"
+            android:id="@+id/aFlag"
+            android:src="@drawable/china"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"/>
+
+        <LinearLayout
+            android:layout_column="2"
+            android:layout_width="150dp"
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            >
+                <TextView
+                    android:id="@+id/aCountrytxt"
+                    android:text="Country Name"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:maxLines="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/aSymboltxt"
+                    android:text="Symbol"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+        </LinearLayout>
+
+        <EditText
+            android:layout_column="3"
+            android:id="@+id/aEditText"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="end"
+            android:layout_gravity="center_vertical"
+            android:text="0"
+            android:textSize="20sp"
+            android:textColor="@color/colorText"
+            android:inputType="numberDecimal"
+            android:background="@null"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            >
+        </EditText>
+    </TableRow>
+
+</TableLayout>

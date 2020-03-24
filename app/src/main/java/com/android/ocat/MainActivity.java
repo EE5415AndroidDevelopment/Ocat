@@ -1,8 +1,8 @@
 package com.android.ocat;
 
 /**
- * Bug!!!
- * 1.   Person Center: save preferences after user updating info
+ * Things Not Be Done Yet!!!
+ * 1.   Person Center Activity: save preferences after user updating info
  * 2.
  */
 

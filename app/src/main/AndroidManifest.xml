@@ -17,19 +17,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".PersonalInfoCenterActivity"></activity>
+        <activity android:name=".ui.finance.RecordNow"
+            android:label="@string/new_record">
+        </activity>
+
+        <activity android:name=".PersonalInfoCenterActivity"
+            android:label="@string/personal"/>
+
         <activity
             android:name=".AppBottomActivity"
-            android:label="@string/title_activity_app_bottom" />
-        <activity android:name=".Forget2Activity" />
-        <activity android:name=".Forget1Activity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity">
+            android:label="@string/title_activity_app_bottom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".Forget2Activity" />
+        <activity android:name=".Forget1Activity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
