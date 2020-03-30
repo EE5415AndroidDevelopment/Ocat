@@ -28,11 +28,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  待完成
- *  1.  动态修改ListView中多个EditText
- *  2.  优化AppBottomActivity汇率保存或重新获取机制
- *  3.  单条 --> 批量获取每月记账，并存储，读取
+ * 已完成
+ *  1.  汇率（点击条目时动态变化）
+ *  2.  账单按月汇总显示
+ *  3.  点击每月账单跳转至明细
+ *  4.  当月账单明细创建总界面
  *
+ * 待完成
+ *  1.  用户编辑数据后：重新请求服务器并页面刷新
+ *  2.  每月汇总界面完成每月金额汇总
+ *  3.  应用顶部栏返回键实现返回上一级响应
+ *  4.  费用明细界面添加增删改功能（可以实现单条目，多条目困难）
+ *  5.  按钮美化
+ *  6.  动态增加或删除EditText组件（困难）
+ *  7.  汇率部分可以支持实时输入（困难）
  */
 public class FinanceFragment extends Fragment {
 
@@ -54,7 +63,7 @@ public class FinanceFragment extends Fragment {
         int[] flags = {R.drawable.china, R.drawable.china, R.drawable.canada, R.drawable.australia, R.drawable.usa};
 
         // data parsing
-        util = new SharedPreferenceUtil(Constant.CURRENCY_RATE_FILE_NAME, getContext());
+        util = new SharedPreferenceUtil(Constant.FILE_NAME, getContext());
         for (int i = 0; i < len; i++) {
             currency_rate[i] = util.getString(currency_code[i]);
         }

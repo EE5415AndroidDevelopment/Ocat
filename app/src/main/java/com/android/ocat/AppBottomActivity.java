@@ -3,7 +3,10 @@ package com.android.ocat;
 import android.os.Bundle;
 
 import com.android.ocat.global.Constant;
+import com.android.ocat.global.entity.CurrencyCode;
 import com.android.ocat.global.entity.CurrencyRateResponse;
+import com.android.ocat.global.entity.FinanceCategory;
+import com.android.ocat.global.entity.FinanceInsertData;
 import com.android.ocat.global.entity.FinanceRecord;
 import com.android.ocat.global.entity.Rates;
 import com.android.ocat.global.entity.ServerResponse;
@@ -21,16 +24,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
 public class AppBottomActivity extends AppCompatActivity {
-    private int len;
+    private int userId;
+    private int arraySize;
     private SharedPreferenceUtil util;
+    private List<String> allDates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +50,21 @@ public class AppBottomActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-//        if (!util.getBoolean("isSuccess") && System.currentTimeMillis() < util.getLong("time")) {
-//
-//        }
-
         // currency_rate data parsing
         final String[] currency_code = getResources().getStringArray(R.array.currency_code);
-        len = currency_code.length;
+        requestCurrencyRate(currency_code);
+
+        util = new SharedPreferenceUtil(Constant.FILE_NAME, AppBottomActivity.this);
+        User user = (User) util.getObject(Constant.USER_JSON, User.class);
+        userId = user.getId();
+
+        requestFinanceDateRange(userId);
+
+        requestFinanceRecord(userId);
+    }
+
+    public void requestCurrencyRate(final String[] currency_code) {
+        final int len = currency_code.length;
         String url = Constant.URL_CURRENCY_RATE;
         OkHttpUtil.get(url, new MyCallBack() {
             @Override
@@ -60,34 +72,73 @@ public class AppBottomActivity extends AppCompatActivity {
                 super.onFinish(status, json);
                 Gson gson = new Gson();
                 CurrencyRateResponse response = gson.fromJson(json, CurrencyRateResponse.class);
-                util = new SharedPreferenceUtil(Constant.CURRENCY_RATE_FILE_NAME,AppBottomActivity.this);
+                util = new SharedPreferenceUtil(Constant.FILE_NAME,AppBottomActivity.this);
                 List<Rates> rates = response.getRates();
-                Map<String, Rates> map = new HashMap<>();
+                int count = 0;
                 for (Rates data : rates) {
-                    map.put(data.getCurrency_code(), data);
-                }
-                for (int i = 0; i < len; i++) {
-                    Rates rate = map.get(currency_code[i]);
-                    float rateFloat = rate.getRate();
-                    util.putString(currency_code[i], String.format("%.2f", rateFloat * 100));
+                    for (int i = 0; i < len; i++) {
+                        if (data.getCurrency_code().equals(currency_code[i])) {
+                            float rateFloat = data.getRate();
+                            util.putString(currency_code[i], String.format("%.2f", rateFloat * 100));
+                            count++;
+                            break;
+                        }
+                    }
+                    if (count == len) {
+                        break;
+                    }
                 }
                 util.putBoolean("isSuccess", true);
                 util.putLong("time", System.currentTimeMillis());
             }
         });
+    }
 
+    public void requestFinanceDateRange(int userId) {
+        String url = Constant.URL + Constant.FINANCE_SELECT_DATE_RANGE;
+        RequestBody requestBody = new FormBody.Builder().add(Constant.UID, Integer.toString(userId)).build();
+        OkHttpUtil.post(url,requestBody,new MyCallBack(){
+            @Override
+            public void onFinish(String status, String json) {
+                super.onFinish(status, json);
+
+                Gson gson = new Gson();
+                ServerResponse<List<String>> response = gson.fromJson(json, new TypeToken<ServerResponse<List<String>>>() {}.getType());
+                if (response.getStatus() != Constant.SUCCESS) {
+                    util.putInt(Constant.ARRAY_SIZE, 0);
+                } else {
+                    List<String> list = response.getData();
+                    util = new SharedPreferenceUtil(Constant.FILE_NAME, AppBottomActivity.this);
+                    util.putString(Constant.ALL_DATES, gson.toJson(list));
+                    util.putInt(Constant.ARRAY_SIZE, list.size());
+                }
+            }
+        });
+    }
+
+    public void requestFinanceRecord(int userId) {
         // finance_record data parsing
-        String url_2 = Constant.URL + Constant.FIANCE_SELECT_MONTHLY;
-        RequestBody requestBody = new FormBody.Builder().add(Constant.YEAR, "2020").add(Constant.MONTH, "3").build();
-        OkHttpUtil.post(url_2, requestBody, new MyCallBack(){
+        String url = Constant.URL + Constant.FINANCE_SELECT;
+        util = new SharedPreferenceUtil(Constant.FILE_NAME, AppBottomActivity.this);
+        RequestBody requestBody = new FormBody.Builder().add(Constant.UID, Integer.toString(userId)).build();
+        OkHttpUtil.post(url, requestBody, new MyCallBack(){
             @Override
             public void onFinish(String status, String json) {
                 super.onFinish(status, json);
                 Gson gson = new Gson();
-                ServerResponse<List<FinanceRecord>> response = gson.fromJson(json, new TypeToken<ServerResponse<List<FinanceRecord>>>(){}.getType());
-                util = new SharedPreferenceUtil(Constant.FINANCE_RECORD_FILE_NAME, AppBottomActivity.this);
-                util.putString("financeRecord", gson.toJson(response.getData()));
+                ServerResponse<List<List<FinanceRecord>>> response = gson.fromJson(json, new TypeToken<ServerResponse<List<List<FinanceRecord>>>>(){}.getType());
+                if (response.getStatus() != Constant.SUCCESS) {
+                    util.putInt(Constant.MONTHLY_RECORD, 0);
+                } else {
+                    List<List<FinanceRecord>> allRecords = response.getData();
+                    int index = 0;
+                    for (List<FinanceRecord> monthlyRecord : allRecords) {
+                        util.putString(Integer.toString(index), gson.toJson(monthlyRecord));
+                        index++;
+                    }
+                }
             }
         });
+
     }
 }

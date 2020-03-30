@@ -14,8 +14,10 @@
     <string name="emailNull">Fail! Email Can\'t be Null</string>
     <string name="passwordNull">Fail! Password Can\'t be Null</string>
     <string name="passwordNotSame">Fail! Passwords Are Not Same</string>
+    <string name="passwordTooShort">Fail! Password Too Short</string>
     <string name="operationSuccess">Operation Success</string>
     <string name="somethingNull">Fail! There is Something Null</string>
+    <string name="atLeastOneItem">At Least One Item</string>
 
     <string name="hiddenUsername">Please Enter Your Username</string>
     <string name="hiddenPassword">Please Enter Your Password</string>
@@ -33,6 +35,7 @@
     <string name="logOut">LOG OUT</string>
     <string name="change">切换至中文版</string>
     <string name="add">ADD</string>
+    <string name="remove">REMOVE</string>
     <string name="in">Income</string>
     <string name="out">Expense</string>
 
@@ -62,13 +65,19 @@
         <item>USD</item>
     </string-array>
 
-    <string-array name="currency_rate">
-        <item>100</item>
-        <item>100</item>
-        <item>100</item>
-        <item>100</item>
-        <item>100</item>
+    <string-array name="finance_category">
+        <item>Traffic</item>
+        <item>Food</item>
+        <item>Game</item>
+        <item>Life</item>
+        <item>Phone Bill</item>
+        <item>Room</item>
+        <item>Education</item>
+        <item>Medical</item>
+        <item>Electronics</item>
+        <item>Pet</item>
     </string-array>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

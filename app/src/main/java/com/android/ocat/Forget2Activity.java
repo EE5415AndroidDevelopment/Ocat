@@ -68,9 +68,11 @@ public class Forget2Activity extends AppCompatActivity {
             Toast.makeText(Forget2Activity.this, R.string.passwordNull, Toast.LENGTH_LONG).show();
         } else if (!password.equals(password2)) {
             Toast.makeText(Forget2Activity.this, R.string.passwordNotSame, Toast.LENGTH_LONG).show();
+        } else if (password.length() < 6 || password2.length() < 6) {
+            Toast.makeText(Forget2Activity.this, R.string.passwordTooShort, Toast.LENGTH_LONG).show();
         } else {
             // request server connection
-            String url = Constant.URL +Constant.FORGET_2;
+            String url = Constant.URL + Constant.FORGET_2;
             RequestBody requestBody = new FormBody.Builder().add(Constant.EMAIL, email).add(Constant.PASSWORD, password).add(Constant.CODE, code).build();
             OkHttpUtil.post(url, requestBody, new MyCallBack() {
                 @Override

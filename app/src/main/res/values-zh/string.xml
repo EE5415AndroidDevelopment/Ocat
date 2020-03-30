@@ -14,8 +14,10 @@
     <string name="emailNull">邮箱不能为空</string>
     <string name="passwordNull">密码不能为空</string>
     <string name="passwordNotSame">密码不一致</string>
+    <string name="passwordTooShort">密码长度太短</string>
     <string name="operationSuccess">操作成功</string>
     <string name="somethingNull">出现空值</string>
+    <string name="atLeastOneItem">账单至少有一个条目</string>
 
     <string name="hiddenUsername">请输入用户名</string>
     <string name="hiddenPassword">请输入密码</string>
@@ -33,6 +35,7 @@
     <string name="logOut">登出</string>
     <string name="change">SWITCH TO ENGLISH VERSION</string>
     <string name="add">添加</string>
+    <string name="remove">移除</string>
     <string name="in">收入</string>
     <string name="out">支出</string>
 
@@ -63,11 +66,16 @@
         <item>USD</item>
     </string-array>
 
-    <string-array name="currency_rate">
-        <item>100</item>
-        <item>100</item>
-        <item>100</item>
-        <item>100</item>
-        <item>100</item>
+    <string-array name="finance_category">
+        <item>交通</item>
+        <item>吃喝</item>
+        <item>娱乐</item>
+        <item>水电网</item>
+        <item>电话费</item>
+        <item>住宿</item>
+        <item>教育</item>
+        <item>医疗</item>
+        <item>数码</item>
+        <item>宠物</item>
     </string-array>
 </resources>

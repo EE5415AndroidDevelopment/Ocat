@@ -1,18 +1,23 @@
 package com.android.ocat.global.entity;
 
-import com.android.ocat.global.utils.DateUtil;
-
-import java.util.Date;
-
 public class FinanceRecord {
     private int id;
     private FinanceCategory cateId;
+    private User userId;
     private int inOut;
     private CurrencyCode currencyCode;
     private String currencyValue;
     private String consumeTime;
     private String createTime;
     private String updateTime;
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
 
     public String getConsumeTime() {
         return consumeTime;
@@ -83,12 +88,13 @@ public class FinanceRecord {
         return "FinanceRecord{" +
                 "id=" + id +
                 ", cateId=" + cateId +
+                ", userId=" + userId +
                 ", inOut=" + inOut +
                 ", currencyCode=" + currencyCode +
                 ", currencyValue='" + currencyValue + '\'' +
-                ", consumeTime=" + consumeTime +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}' + "\n";
+                ", consumeTime='" + consumeTime + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                '}';
     }
 }
