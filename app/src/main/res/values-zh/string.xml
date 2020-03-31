@@ -38,6 +38,9 @@
     <string name="remove">移除</string>
     <string name="in">收入</string>
     <string name="out">支出</string>
+    <string name="ok">确认</string>
+    <string name="warning">警告</string>
+    <string name="warning_message">任何修改将被永久提交\n\n此操作不可逆</string>
 
 
     <string name="title_activity_app_bottom">AppBottomActivity</string>

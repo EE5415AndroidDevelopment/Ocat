@@ -17,6 +17,7 @@ import com.android.ocat.R;
 import com.android.ocat.global.Constant;
 import com.android.ocat.global.entity.CurrencyRateResponse;
 import com.android.ocat.global.entity.Rates;
+import com.android.ocat.global.utils.FinanceAlgorithm;
 import com.android.ocat.global.utils.MyCallBack;
 import com.android.ocat.global.utils.OkHttpUtil;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
@@ -44,32 +45,29 @@ import java.util.Map;
  *  7.  汇率部分可以支持实时输入（困难）
  */
 public class FinanceFragment extends Fragment {
-
-    private FinanceViewModel financeViewModel;
     private ListView mListView;
     private FinanceRateListAdapter mFinanceRateListAdapter;
     private FloatingActionButton floatingActionButton;
-    private SharedPreferenceUtil util;
     private int len;
+    private String[] countries, currency_code, currency_rate;
+    private int[] flags;
+    private SharedPreferenceUtil util;
 
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_finance, container, false);
 //        setHasOptionsMenu(true);
 
-        final String[] countries = getResources().getStringArray(R.array.countries_array);
-        len = countries.length;
-        final String[] currency_code = getResources().getStringArray(R.array.currency_code);
-        final String[] currency_rate = new String[len];
-        int[] flags = {R.drawable.china, R.drawable.china, R.drawable.canada, R.drawable.australia, R.drawable.usa};
-
-        // data parsing
+        // load R.array
         util = new SharedPreferenceUtil(Constant.FILE_NAME, getContext());
-        for (int i = 0; i < len; i++) {
-            currency_rate[i] = util.getString(currency_code[i]);
-        }
+        countries = getResources().getStringArray(R.array.countries_array);
+        len = countries.length;
+        currency_code = getResources().getStringArray(R.array.currency_code);
+        currency_rate = new String[len];
+        flags = new int[]{R.drawable.china, R.drawable.china, R.drawable.canada, R.drawable.australia, R.drawable.usa};
 
         // ListView
         mListView = view.findViewById(R.id.listView);
+        parseData(util);
         mFinanceRateListAdapter = new FinanceRateListAdapter(getContext(), countries, currency_code, currency_rate, flags);
         mListView.setAdapter(mFinanceRateListAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,11 +99,18 @@ public class FinanceFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.finance_functions_menu, menu);
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // request server, over-write data
+        FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(util);
+        financeAlgorithm.requestCurrencyRate(currency_code);
+        parseData(util);
+    }
 
-
+    private void parseData(SharedPreferenceUtil util) {
+        for (int i = 0; i < len; i++) {
+            currency_rate[i] = util.getString(currency_code[i]);
+        }
+    }
 }

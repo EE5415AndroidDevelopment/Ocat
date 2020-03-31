@@ -117,6 +117,7 @@ public class RecordNowActivity extends AppCompatActivity {
                 }
             });
         }
+        finish();
     }
 
     public void onCancelClicked(View view) {

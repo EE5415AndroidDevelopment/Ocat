@@ -1,8 +1,8 @@
 package com.android.ocat.global;
 
 public class Constant {
-//    public static final String URL = "http://47.97.82.78:8080";
-    public static final String URL = "http://192.168.1.118:8080";
+    public static final String URL = "http://47.97.82.78:8080";
+//    public static final String URL = "http://192.168.1.118:8080";
     public static final String URL_CURRENCY_RATE = "https://www.mycurrency.net/US.json";
 
     // SMS interval
@@ -37,10 +37,12 @@ public class Constant {
     public static final String FINANCE_SELECT = "/finance/select";
     public static final String FINANCE_SELECT_DATE_RANGE = "/finance/selectDateRange";
     public static final String FINANCE_INSERT_ONE = "/finance/insertOne";
+    public static final String FINANCE_DELETE_ONE = "/finance/deleteOne";
 
     // URL Request Parameters
     public static final String USERNAME = "username";
     public static final String UID = "uid";
+    public static final String ID = "id";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String CODE = "code";

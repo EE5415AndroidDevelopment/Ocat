@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.android.ocat.R;
 import com.android.ocat.global.Constant;
+import com.android.ocat.global.utils.FinanceAlgorithm;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -28,6 +29,7 @@ public class BookKeepingFragment extends Fragment {
     private SharedPreferenceUtil util;
     private int arraySize;
     private String[] time_array, count_array;
+    private FinanceAlgorithm financeAlgorithm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,5 +70,15 @@ public class BookKeepingFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // request server, over-write data
+        financeAlgorithm = new FinanceAlgorithm(util);
+        financeAlgorithm.requestFinanceRecord();
+        System.out.println("+++++++++++++++++");
+        System.out.println("FianceRecord Reload");
     }
 }

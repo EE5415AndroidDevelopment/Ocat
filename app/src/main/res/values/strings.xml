@@ -38,6 +38,9 @@
     <string name="remove">REMOVE</string>
     <string name="in">Income</string>
     <string name="out">Expense</string>
+    <string name="ok">OK</string>
+    <string name="warning">Warning</string>
+    <string name="warning_message">Any Modification Will Be Committed Permanently\n\nThis Operation Will Not Be Reversible</string>
 
     <string name="title_hotspots">Hotspots</string>
     <string name="title_finance">Finance</string>

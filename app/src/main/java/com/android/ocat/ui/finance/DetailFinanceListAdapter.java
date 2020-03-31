@@ -14,14 +14,16 @@ import androidx.annotation.Nullable;
 
 import com.android.ocat.R;
 
+import java.util.List;
+
 public class DetailFinanceListAdapter extends BaseAdapter {
     Context context;
-    private final String [] category_array;
-    private final String[] in_out;
-    private final String[] currency_code;
-    private final String [] currency_value;
+    private final List<String> category_array;
+    private final List<String> in_out;
+    private final List<String> currency_code;
+    private final List<String> currency_value;
 
-    public DetailFinanceListAdapter(Context context, String [] category_array, String[] in_out, String[] currency_code, String [] currency_value){
+    public DetailFinanceListAdapter(Context context, List<String> category_array, List<String> in_out, List<String> currency_code, List<String> currency_value) {
         this.context = context;
         this.category_array = category_array;
         this.in_out = in_out;
@@ -31,7 +33,7 @@ public class DetailFinanceListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return category_array.length;
+        return category_array.size();
     }
 
     @Override
@@ -62,10 +64,10 @@ public class DetailFinanceListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.category.setText(category_array[position]);
-        viewHolder.inOut.setText(in_out[position]);
-        viewHolder.currencyCode.setText(currency_code[position]);
-        viewHolder.currencyValue.setText(currency_value[position]);
+        viewHolder.category.setText(category_array.get(position));
+        viewHolder.inOut.setText(in_out.get(position));
+        viewHolder.currencyCode.setText(currency_code.get(position));
+        viewHolder.currencyValue.setText(currency_value.get(position));
         return convertView;
     }
 
