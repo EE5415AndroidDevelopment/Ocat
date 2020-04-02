@@ -9,13 +9,18 @@
         android:id="@+id/navigation_hotspots"
         android:name="com.android.ocat.ui.hotspots.HotspotsFragment"
         android:label="@string/title_hotspots"
-        tools:layout="@layout/fragment_hotspots" />
+        tools:layout="@layout/fragment_hotspots">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_finance"
         android:name="com.android.ocat.ui.finance.FinanceFragment"
         android:label="@string/daily_rate"
-        tools:layout="@layout/fragment_finance" />
+        tools:layout="@layout/fragment_finance">
+        <action
+            android:id="@+id/one2two"
+            app:destination="@id/navigation_bookKeeping" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_study"
@@ -33,7 +38,11 @@
         android:id="@+id/navigation_bookKeeping"
         android:name="com.android.ocat.ui.finance.BookKeepingFragment"
         android:label="@string/my_bill"
-        tools:layout="@layout/fragment_book_keeping" />
+        tools:layout="@layout/fragment_book_keeping">
+        <action
+            android:id="@+id/two2three"
+            app:destination="@id/navigation_detailFinance" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_detailFinance"

@@ -20,6 +20,7 @@ import com.android.ocat.global.utils.CountDown;
 import com.android.ocat.global.utils.MyCallBack;
 import com.android.ocat.global.utils.OkHttpUtil;
 import com.android.ocat.global.utils.SendCodeUtil;
+import com.android.ocat.global.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -65,7 +66,7 @@ public class Forget2Activity extends AppCompatActivity {
         // check input validity
         // check null value
         if (TextUtils.isEmpty(password) || TextUtils.isEmpty(password2)) {
-            Toast.makeText(Forget2Activity.this, R.string.passwordNull, Toast.LENGTH_LONG).show();
+            Toast.makeText(Forget2Activity.this, R.string.passwordEmpty, Toast.LENGTH_LONG).show();
         } else if (!password.equals(password2)) {
             Toast.makeText(Forget2Activity.this, R.string.passwordNotSame, Toast.LENGTH_LONG).show();
         } else if (password.length() < 6 || password2.length() < 6) {
@@ -78,16 +79,14 @@ public class Forget2Activity extends AppCompatActivity {
                 @Override
                 public void onFinish(String status, String json) {
                     super.onFinish(status, json);
-                    // 解析数据
                     Gson gson = new Gson();
                     ServerResponse<User> serverResponse = gson.fromJson(json, new TypeToken<ServerResponse<User>>() {
                     }.getType());
-                    int statusCode = serverResponse.getStatus();
+                    statusCode = serverResponse.getStatus();
 
                     if (statusCode == 0) {
                         Looper.prepare();
                         Toast.makeText(Forget2Activity.this, R.string.operationSuccess, Toast.LENGTH_LONG).show();
-                        // 延时返回登陆界面
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -99,7 +98,7 @@ public class Forget2Activity extends AppCompatActivity {
 
                     } else {
                         Looper.prepare();
-                        Toast.makeText(Forget2Activity.this, serverResponse.getMessages(), Toast.LENGTH_LONG).show();
+                        ToastUtil.createToast(Forget2Activity.this, statusCode);
                         Looper.loop();
                     }
                 }
@@ -112,7 +111,7 @@ public class Forget2Activity extends AppCompatActivity {
         String password = passwordEdit.getText().toString();
         String password2 = password2Edit.getText().toString();
         if (TextUtils.isEmpty(password) || TextUtils.isEmpty(password2)){
-            Toast.makeText(Forget2Activity.this, R.string.passwordNull, Toast.LENGTH_LONG).show();
+            Toast.makeText(Forget2Activity.this, R.string.passwordEmpty, Toast.LENGTH_LONG).show();
         } else if (!password.equals(password2)) {
             Toast.makeText(Forget2Activity.this, R.string.passwordNotSame, Toast.LENGTH_LONG).show();
         } else {

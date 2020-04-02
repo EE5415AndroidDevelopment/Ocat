@@ -11,8 +11,26 @@
     <string name="currentEmail">Current Email</string>
 
     <string name="sendCodeSuccess">Code Sent Successfully</string>
-    <string name="emailNull">Fail! Email Can\'t be Null</string>
-    <string name="passwordNull">Fail! Password Can\'t be Null</string>
+    <string name="emailEmpty">Fail! Email Can\'t be Null</string>
+    <string name="passwordEmpty">Fail! Password Can\'t be Null</string>
+
+    <string name="invalidPassword">Invalid Password</string>
+    <string name="userAlreadyExists">User Already Exists</string>
+    <string name="emailAlreadyExists">Email Already Exists</string>
+    <string name="phoneAlreadyExists">Email Already Exists</string>
+    <string name="registerFail">Register Fail</string>
+    <string name="forgetFail">Reset Password Fail</string>
+    <string name="codeEmpty">Fail! Code Can\'t be Null</string>
+    <string name="invalidCode">Invalid Code</string>
+    <string name="sendCodeFail">Fail to Send Code</string>
+    <string name="emailNotExists">Email Not Exists</string>
+    <string name="updateFail">Update Fail</string>
+    <string name="illegalParams">Illegal Params</string>
+    <string name="noRecord">No Record Exists</string>
+    <string name="noRecordWelcome">No Record Yet! Make Your First Record Now</string>
+    <string name="deleteFail">Delete Fail</string>
+    <string name="noModificationYet">You Haven\'t Modify Anything</string>
+
     <string name="passwordNotSame">Fail! Passwords Are Not Same</string>
     <string name="passwordTooShort">Fail! Password Too Short</string>
     <string name="operationSuccess">Operation Success</string>
@@ -25,7 +43,7 @@
     <string name="hiddenEmail">Please Enter Your Email</string>
     <string name="hiddenVerificationCode">Please Enter Your Verification Code</string>
 
-    <string name="welcome">WELCOME</string>
+    <string name="welcome">WELCOME!  </string>
     <string name="personal">Personal Information</string>
     <string name="signIn">SIGN IN</string>
     <string name="signUp">Sign Up</string>
@@ -40,7 +58,8 @@
     <string name="out">Expense</string>
     <string name="ok">OK</string>
     <string name="warning">Warning</string>
-    <string name="warning_message">Any Modification Will Be Committed Permanently\n\nThis Operation Will Not Be Reversible</string>
+    <string name="warning_message_submit">Any Modification Will Be Committed Permanently\n\nThis Operation Will Not Be Reversible</string>
+    <string name="warning_message_delete">Do you want to delete this record?</string>
 
     <string name="title_hotspots">Hotspots</string>
     <string name="title_finance">Finance</string>

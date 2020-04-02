@@ -4,6 +4,7 @@ public class Constant {
     public static final String URL = "http://47.97.82.78:8080";
 //    public static final String URL = "http://192.168.1.118:8080";
     public static final String URL_CURRENCY_RATE = "https://www.mycurrency.net/US.json";
+//jinghchen8-c@my.cityu.edu.hk
 
     // SMS interval
     public static final int INTERVAL = 1000;
@@ -14,18 +15,15 @@ public class Constant {
 
     // Preference Filename
     public static final String FILE_NAME = "userInfo";
-    public static final String CURRENCY_RATE_FILE_NAME = "currencyRate";
-    public static final String FINANCE_RECORD_FILE_NAME = "financeRecord";
+
     // Preference Parameter
     public static final String IS_SGININ = "isSignIn";
     public static final String USER_JSON = "userJson";
-    public static final String LATEST_YEAR = "latestYear";
-    public static final String LATEST_MONTH = "latestMonth";
-    public static final String OLDEST_YEAR = "oldestYear";
-    public static final String OLDEST_MONTH = "oldestMonth";
-    public static final String ARRAY_SIZE = "arraySize";
     public static final String ALL_DATES = "allDates";
     public static final String MONTHLY_RECORD = "monthlyRecord";
+    public static final String REFRESH_NOW = "refreshNow";
+    public static final String FINANCE_SUM = "financeSum";
+    public static final String HAS_RECORD = "hasRecord";
 
     // URL Request
     public static final String LOGIN = "/user/login";
@@ -38,6 +36,7 @@ public class Constant {
     public static final String FINANCE_SELECT_DATE_RANGE = "/finance/selectDateRange";
     public static final String FINANCE_INSERT_ONE = "/finance/insertOne";
     public static final String FINANCE_DELETE_ONE = "/finance/deleteOne";
+    public static final String FINANCE_SELECT_SUM = "/finance/selectSum";
 
     // URL Request Parameters
     public static final String USERNAME = "username";
@@ -56,6 +55,8 @@ public class Constant {
     public static final String IN_OUT = "inOut";
     public static final String CURRENCY_CODE = "currencyCode";
     public static final String CURRENCY_VALUE = "currencyValue";
+    public static final int FINANCE_IN = 0;
+    public static final int FINANCE_OUT = 1;
 
     // SUCCESS Code
     public static final int SUCCESS = 0;
@@ -83,5 +84,6 @@ public class Constant {
     public static final int PARAM_EMPTY = 20;
     public static final int ILLEGAL_PARAM = 21;
     public static final int NO_RECORD = 22;
+    public static final int DELETE_FAIL = 23;
 
 }

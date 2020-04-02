@@ -1,4 +1,4 @@
-package com.android.ocat;
+package com.android.ocat.ui.me;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,14 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.ocat.R;
 import com.android.ocat.global.Constant;
 import com.android.ocat.global.entity.ServerResponse;
 import com.android.ocat.global.entity.User;
-import com.android.ocat.global.utils.CountDown;
 import com.android.ocat.global.utils.MyCallBack;
 import com.android.ocat.global.utils.OkHttpUtil;
 import com.android.ocat.global.utils.SendCodeUtil;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
+import com.android.ocat.global.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,7 +38,7 @@ public class PersonalInfoCenterActivity extends AppCompatActivity {
     private String email;
     private String phone;
     private String code;
-    private int statusSubmitCode;
+    private int statusCode;
     private String sendCodeMethod = Constant.CODE_METHOD_NEW;
 
     @Override
@@ -68,7 +69,7 @@ public class PersonalInfoCenterActivity extends AppCompatActivity {
         System.out.println(email);
         System.out.println(user.getEmail());
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(PersonalInfoCenterActivity.this, R.string.emailNull, Toast.LENGTH_LONG).show();
+            Toast.makeText(PersonalInfoCenterActivity.this, R.string.emailEmpty, Toast.LENGTH_LONG).show();
         } else {
             if (email.equals(user.getEmail())) {
                 sendCodeMethod = Constant.CODE_METHOD_OLD;
@@ -84,10 +85,11 @@ public class PersonalInfoCenterActivity extends AppCompatActivity {
         phone = mePhoneValueText.getText().toString();
         code = enterCodeEdit.getText().toString();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(code)) {
-            Toast.makeText(PersonalInfoCenterActivity.this, R.string.somethingNull, Toast.LENGTH_LONG).show();
-        } else {
-                // 请求网络接口 --> okhttp
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(PersonalInfoCenterActivity.this, R.string.emailEmpty, Toast.LENGTH_LONG).show();
+        }else if(TextUtils.isEmpty(code)) {
+            Toast.makeText(PersonalInfoCenterActivity.this, R.string.codeEmpty, Toast.LENGTH_LONG).show();
+        }else {
             String url = Constant.URL + Constant.UPDATE;
             RequestBody requestBody = new FormBody.Builder()
                     .add(Constant.USERNAME, username)
@@ -95,26 +97,28 @@ public class PersonalInfoCenterActivity extends AppCompatActivity {
                     .add(Constant.PHONE, phone)
                     .add(Constant.CODE, code)
                     .add(Constant.CODE_METHOD, sendCodeMethod).build();
-            OkHttpUtil.post(url,requestBody, new MyCallBack(){
+            OkHttpUtil.post(url, requestBody, new MyCallBack() {
                 @Override
                 public void onFinish(String status, String json) {
                     super.onFinish(status, json);
 
-                    // 解析数据
                     Gson gson = new Gson();
-                    ServerResponse<User> serverResponse= gson.fromJson(json, new TypeToken<ServerResponse<User>>(){}.getType());
-                    statusSubmitCode = serverResponse.getStatus();
+                    ServerResponse<User> serverResponse = gson.fromJson(json, new TypeToken<ServerResponse<User>>() {
+                    }.getType());
+                    statusCode = serverResponse.getStatus();
 
-                    if (statusSubmitCode == 0) {
-                        // 修改成功
+                    if (statusCode == 0) {
                         Looper.prepare();
                         Toast.makeText(PersonalInfoCenterActivity.this, R.string.operationSuccess, Toast.LENGTH_SHORT).show();
+                        user.setUsername(username);
+                        user.setEmail(email);
+                        user.setPhone(phone);
+                        sharedPreferenceUtil.putString(Constant.USER_JSON, gson.toJson(user));
                         finish();
                         Looper.loop();
                     } else {
-                        // 修改失败
                         Looper.prepare();
-                        Toast.makeText(PersonalInfoCenterActivity.this, serverResponse.getMessages(), Toast.LENGTH_LONG).show();
+                        ToastUtil.createToast(PersonalInfoCenterActivity.this, statusCode);
                         Looper.loop();
                     }
                 }

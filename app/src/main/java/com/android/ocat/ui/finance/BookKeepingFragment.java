@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.android.ocat.R;
 import com.android.ocat.global.Constant;
+import com.android.ocat.global.entity.FinanceSum;
 import com.android.ocat.global.utils.FinanceAlgorithm;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,25 +29,31 @@ public class BookKeepingFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private SharedPreferenceUtil util;
     private int arraySize;
-    private String[] time_array, count_array;
-    private FinanceAlgorithm financeAlgorithm;
+    private String[] time_array, count_array, sum;
+    private int i = 0;
+    private boolean flag = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_keeping, container, false);
 
-        // ListView
+//        System.out.println("++++++++++++++++onCreateView+++++++++++++++++++");
+//        System.out.println(++i);
         Gson gson = new Gson();
         util = new SharedPreferenceUtil(Constant.FILE_NAME, getContext());
-        List<String> list = gson.fromJson(util.getString(Constant.ALL_DATES), new TypeToken<List<String>>() {}.getType());
-        arraySize = util.getInt(Constant.ARRAY_SIZE);
+        List<String> allDatesList = gson.fromJson(util.getString(Constant.ALL_DATES), new TypeToken<List<String>>() {}.getType());
+        List<FinanceSum> sumList = gson.fromJson(util.getString(Constant.FINANCE_SUM), new TypeToken<List<FinanceSum>>() {}.getType());
+        arraySize = allDatesList.size();
         time_array = new String[arraySize];
         count_array = new String[arraySize];
         for (int i = 0; i < arraySize; i++) {
-            time_array[i] = list.get(i);
-            count_array[i] = 100 * i + "";
+            time_array[i] = allDatesList.get(i);
+            FinanceSum financeSum = sumList.get(i);
+            int sum = financeSum.getTotalIn() - financeSum.getTotalOut();
+            count_array[i] = Integer.toString(sum);
         }
 
+        // ListView
         mListView = view.findViewById(R.id.listView);
         mBookKeepingListAdapter = new BookKeepingListAdapter(getContext(), time_array, count_array);
         mListView.setAdapter(mBookKeepingListAdapter);
@@ -63,7 +70,6 @@ public class BookKeepingFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.navigation_bookKeeping);
                 Intent intent = new Intent(getActivity(), RecordNowActivity.class);
                 startActivity(intent);
             }
@@ -75,10 +81,14 @@ public class BookKeepingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // request server, over-write data
-        financeAlgorithm = new FinanceAlgorithm(util);
-        financeAlgorithm.requestFinanceRecord();
-        System.out.println("+++++++++++++++++");
-        System.out.println("FianceRecord Reload");
+        if (flag) {
+            mBookKeepingListAdapter.update();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        flag = true;
     }
 }

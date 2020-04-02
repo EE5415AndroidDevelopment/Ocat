@@ -1,6 +1,7 @@
 package com.android.ocat.ui.finance;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +14,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.ocat.R;
+import com.android.ocat.global.Constant;
 
 import java.util.List;
 
 public class DetailFinanceListAdapter extends BaseAdapter {
     Context context;
-    private final List<String> category_array;
-    private final List<String> in_out;
-    private final List<String> currency_code;
-    private final List<String> currency_value;
+    private final List<String> categoryArray, date, currencyCode, currencyValue;
+    private final List<Integer> in_out;
 
-    public DetailFinanceListAdapter(Context context, List<String> category_array, List<String> in_out, List<String> currency_code, List<String> currency_value) {
+    public DetailFinanceListAdapter(Context context, List<String> categoryArray, List<String>date, List<Integer> in_out, List<String> currencyCode, List<String> currencyValue) {
         this.context = context;
-        this.category_array = category_array;
+        this.categoryArray = categoryArray;
+        this.date = date;
         this.in_out = in_out;
-        this.currency_code = currency_code;
-        this.currency_value = currency_value;
+        this.currencyCode = currencyCode;
+        this.currencyValue = currencyValue;
     }
 
     @Override
     public int getCount() {
-        return category_array.size();
+        return categoryArray.size();
     }
 
     @Override
@@ -54,26 +55,32 @@ public class DetailFinanceListAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.list_detail_finance, parent, false);
-            viewHolder.category = (TextView)
-                    convertView.findViewById(R.id.category);
-            viewHolder.inOut = (TextView)
-                    convertView.findViewById(R.id.inOut);
-            viewHolder.currencyCode = (TextView) convertView.findViewById(R.id.currencyCode);
-            viewHolder.currencyValue = (TextView) convertView.findViewById(R.id.currencyValue);
+            viewHolder.category = convertView.findViewById(R.id.category);
+            viewHolder.date = convertView.findViewById(R.id.date);
+            viewHolder.currencyCode = convertView.findViewById(R.id.currencyCode);
+            viewHolder.currencyValue = convertView.findViewById(R.id.currencyValue);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.category.setText(category_array.get(position));
-        viewHolder.inOut.setText(in_out.get(position));
-        viewHolder.currencyCode.setText(currency_code.get(position));
-        viewHolder.currencyValue.setText(currency_value.get(position));
+        viewHolder.category.setText(categoryArray.get(position));
+        viewHolder.date.setText(date.get(position));
+        viewHolder.currencyCode.setText(currencyCode.get(position));
+        switch (in_out.get(position)) {
+            case Constant.FINANCE_IN:
+                viewHolder.currencyValue.setTextColor(Color.parseColor("#D81B60"));
+                break;
+            case Constant.FINANCE_OUT:
+                viewHolder.currencyValue.setTextColor(Color.parseColor("#008577"));
+                break;
+        }
+        viewHolder.currencyValue.setText(currencyValue.get(position));
         return convertView;
     }
 
     private static class ViewHolder {
         TextView category;
-        TextView inOut;
+        TextView date;
         TextView currencyCode;
         TextView currencyValue;
     }

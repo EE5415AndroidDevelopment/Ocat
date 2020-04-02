@@ -1,13 +1,28 @@
 package com.android.ocat;
 
 /**
- * Things Not Be Done Yet!!!
- * 1.   Person Center Activity: save preferences after user updating info
- * 2.
+ * 总体
+ * 未完成
+ * 1.   APP美化（图标，背景，等）
+ * 2.   输入格式合法性校验（纯数字，日期格式，）
  */
 
 /**
- * GitHub Test
+ * Me
+ * 未完成：
+ * 1.   Person Center Activity:  添加修改密码功能
+ */
+
+/**
+ *
+ * Finance
+ * 未完成
+ *  1.  数据库时区问题
+ *  2.  账号初始记录为初值
+ *
+ *  4.  悬浮按钮美化
+ *  5.  应用顶部栏返回键实现返回上一级响应（困难）
+ *  6.  汇率可以支持实时输入（困难）
  */
 
 import androidx.annotation.Nullable;
@@ -20,6 +35,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
@@ -32,6 +48,7 @@ import com.android.ocat.global.entity.User;
 import com.android.ocat.global.utils.MyCallBack;
 import com.android.ocat.global.utils.OkHttpUtil;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
+import com.android.ocat.global.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -74,43 +91,49 @@ public class MainActivity extends AppCompatActivity{
         email = emailEdit.getText().toString();
         password = passwordEdit.getText().toString();
 
-        // request server connection
-        String url = Constant.URL + Constant.LOGIN;
-        RequestBody requestBody = new FormBody.Builder().add(Constant.EMAIL, email).add(Constant.PASSWORD,password).build();
-        OkHttpUtil.post(url,requestBody, new MyCallBack(){
-            @Override
-            public void onFinish(String status, String json) {
-                super.onFinish(status, json);
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.emailEmpty), Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(password)) {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.passwordEmpty), Toast.LENGTH_LONG).show();
+        } else {
+            // request server connection
+            String url = Constant.URL + Constant.LOGIN;
+            RequestBody requestBody = new FormBody.Builder().add(Constant.EMAIL, email).add(Constant.PASSWORD,password).build();
+            OkHttpUtil.post(url,requestBody, new MyCallBack(){
+                @Override
+                public void onFinish(String status, String json) {
+                    super.onFinish(status, json);
 
-                // parsing data
-                Gson gson = new Gson();
-                ServerResponse<User> serverResponse= gson.fromJson(json, new TypeToken<ServerResponse<User>>(){}.getType());
-                int statusCode = serverResponse.getStatus();
+                    // parsing data
+                    Gson gson = new Gson();
+                    ServerResponse<User> serverResponse= gson.fromJson(json, new TypeToken<ServerResponse<User>>(){}.getType());
+                    int statusCode = serverResponse.getStatus();
 
-                if (statusCode == 0) {
-                    // login success
-                    // save server response
-                    SharedPreferenceUtil util = new SharedPreferenceUtil(Constant.FILE_NAME,MainActivity.this);
-                    util.putBoolean(Constant.IS_SGININ, true);
-                    util.putString(Constant.USER_JSON, gson.toJson(serverResponse.getData()));
-                    util.putString("language", changeText);
+                    if (statusCode == 0) {
+                        // login success
+                        // save server response
+                        SharedPreferenceUtil util = new SharedPreferenceUtil(Constant.FILE_NAME,MainActivity.this);
+                        util.putBoolean(Constant.IS_SGININ, true);
+                        util.putString(Constant.USER_JSON, gson.toJson(serverResponse.getData()));
+                        util.putString("language", changeText);
 
-                    // welcome tip
-                    Looper.prepare();
-                    Toast.makeText(MainActivity.this, "Welcome! "+serverResponse.getData().getUsername(), Toast.LENGTH_SHORT).show();
-                    // activity jump
-                            Intent intent = new Intent(MainActivity.this, AppBottomActivity.class);
-                            startActivity(intent);
-                            Looper.loop();
+                        // welcome tip
+                        Looper.prepare();
+                        Toast.makeText(MainActivity.this, getResources().getString(R.string.welcome)+serverResponse.getData().getUsername(), Toast.LENGTH_SHORT).show();
+                        // activity jump
+                                Intent intent = new Intent(MainActivity.this, AppBottomActivity.class);
+                                startActivity(intent);
+                                Looper.loop();
 
-                } else {
-                    // login fail
-                    Looper.prepare();
-                    Toast.makeText(MainActivity.this, serverResponse.getMessages(), Toast.LENGTH_LONG).show();
-                    Looper.loop();
+                    } else {
+                        // login fail
+                        Looper.prepare();
+                        ToastUtil.createToast(MainActivity.this, statusCode);
+                        Looper.loop();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void onSignUpClicked(View view) {

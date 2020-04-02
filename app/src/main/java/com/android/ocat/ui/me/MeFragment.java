@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.android.ocat.MainActivity;
-import com.android.ocat.PersonalInfoCenterActivity;
 import com.android.ocat.R;
 import com.android.ocat.global.Constant;
 import com.android.ocat.global.entity.User;

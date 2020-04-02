@@ -1,13 +1,18 @@
 package com.android.ocat.ui.finance;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,22 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 已完成
- *  1.  汇率（点击条目时动态变化）
- *  2.  账单按月汇总显示
- *  3.  点击每月账单跳转至明细
- *  4.  当月账单明细创建总界面
- *
- * 待完成
- *  1.  用户编辑数据后：重新请求服务器并页面刷新
- *  2.  每月汇总界面完成每月金额汇总
- *  3.  应用顶部栏返回键实现返回上一级响应
- *  4.  费用明细界面添加增删改功能（可以实现单条目，多条目困难）
- *  5.  按钮美化
- *  6.  动态增加或删除EditText组件（困难）
- *  7.  汇率部分可以支持实时输入（困难）
- */
 public class FinanceFragment extends Fragment {
     private ListView mListView;
     private FinanceRateListAdapter mFinanceRateListAdapter;
@@ -52,24 +41,31 @@ public class FinanceFragment extends Fragment {
     private String[] countries, currency_code, currency_rate;
     private int[] flags;
     private SharedPreferenceUtil util;
+    private boolean isStop;
 
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_finance, container, false);
 //        setHasOptionsMenu(true);
 
-        // load R.array
+        mListView = view.findViewById(R.id.listView);
+
+        // load data
         util = new SharedPreferenceUtil(Constant.FILE_NAME, getContext());
         countries = getResources().getStringArray(R.array.countries_array);
         len = countries.length;
         currency_code = getResources().getStringArray(R.array.currency_code);
         currency_rate = new String[len];
         flags = new int[]{R.drawable.china, R.drawable.china, R.drawable.canada, R.drawable.australia, R.drawable.usa};
+        FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(getContext(), util);
+        financeAlgorithm.requestCurrencyRate(currency_code);
+        for (int i = 0; i < len; i++) {
+            currency_rate[i] = util.getString(currency_code[i]);
+        }
 
         // ListView
-        mListView = view.findViewById(R.id.listView);
-        parseData(util);
         mFinanceRateListAdapter = new FinanceRateListAdapter(getContext(), countries, currency_code, currency_rate, flags);
         mListView.setAdapter(mFinanceRateListAdapter);
+        mListView = view.findViewById(R.id.listView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -92,7 +88,14 @@ public class FinanceFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.navigation_bookKeeping);
+                boolean hasRecord = util.getBoolean(Constant.HAS_RECORD);
+                if (hasRecord) {
+                    Navigation.findNavController(v).navigate(R.id.navigation_bookKeeping);
+                } else {
+                    Intent intent = new Intent(getActivity(), RecordNowActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(getContext(), R.string.noRecordWelcome, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -103,14 +106,20 @@ public class FinanceFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // request server, over-write data
-        FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(util);
-        financeAlgorithm.requestCurrencyRate(currency_code);
-        parseData(util);
+        if (isStop) {
+            FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(getContext(), util);
+            financeAlgorithm.requestCurrencyRate(currency_code);
+        }
     }
 
-    private void parseData(SharedPreferenceUtil util) {
-        for (int i = 0; i < len; i++) {
-            currency_rate[i] = util.getString(currency_code[i]);
-        }
+    @Override
+    public void onStop() {
+        super.onStop();
+        isStop = true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

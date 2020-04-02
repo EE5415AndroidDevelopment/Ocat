@@ -9,11 +9,19 @@ import java.util.Date;
  * 时间格式化工具类
  */
 public class DateUtil {
-    public static Date string2Date(String str) {
+    public static Date string2FullDate(String str) {
         if (str == null) {
             return null;
         }
         DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").parseDateTime(str);
+        return dateTime.toDate();
+    }
+
+    public static Date string2SimpleDate(String str) {
+        if (str == null) {
+            return null;
+        }
+        DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(str);
         return dateTime.toDate();
     }
 
@@ -25,12 +33,20 @@ public class DateUtil {
         return dateTime.toDate();
     }
 
-    public static String date2String(Date date) {
+    public static String date2FullString(Date date) {
         if (date == null) {
             return null;
         }
         DateTime dateTime = new DateTime(date);
         return dateTime.toString("yyyy-MM-dd HH:mm:ss");
+    }
+
+    public static String date2SimpleString(Date date) {
+        if (date == null) {
+            return null;
+        }
+        DateTime dateTime = new DateTime(date);
+        return dateTime.toString("yyyy-MM-dd");
     }
 
     public static String date2String(Date date, String format) {

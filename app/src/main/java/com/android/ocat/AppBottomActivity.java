@@ -50,12 +50,17 @@ public class AppBottomActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        // currency_rate data parsing
+        /**
+         * currency_rate data parsing
+         * request currency_rate
+         * request user finance record
+         */
         context = AppBottomActivity.this;
         financeAlgorithm = new FinanceAlgorithm(context);
         final String[] currency_code = getResources().getStringArray(R.array.currency_code);
         financeAlgorithm.requestCurrencyRate(currency_code);
         financeAlgorithm.requestFinanceDateRange();
         financeAlgorithm.requestFinanceRecord();
+        financeAlgorithm.requestFinanceSum();
     }
 }

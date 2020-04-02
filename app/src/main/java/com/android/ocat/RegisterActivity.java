@@ -21,6 +21,7 @@ import com.android.ocat.global.utils.CountDown;
 import com.android.ocat.global.utils.MyCallBack;
 import com.android.ocat.global.utils.OkHttpUtil;
 import com.android.ocat.global.utils.SendCodeUtil;
+import com.android.ocat.global.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -96,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
                         // register fail
                         Looper.prepare();
-                        Toast.makeText(RegisterActivity.this, serverResponse.getMessages(), Toast.LENGTH_LONG).show();
+                        ToastUtil.createToast(RegisterActivity.this, statusCode);
                         Looper.loop();
                     }
                 }
@@ -111,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
         // check input validity
         // check null value
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(RegisterActivity.this, R.string.emailNull, Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, R.string.emailEmpty, Toast.LENGTH_LONG).show();
         } else {
             sendCodeUtil = new SendCodeUtil(RegisterActivity.this, email, Constant.CODE_METHOD_NEW, codeButton);
             sendCodeUtil.sendCode();

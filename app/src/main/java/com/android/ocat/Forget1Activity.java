@@ -40,7 +40,7 @@ public class Forget1Activity extends AppCompatActivity {
         // check input validity
         // check null value
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(Forget1Activity.this, R.string.emailNull, Toast.LENGTH_LONG).show();
+            Toast.makeText(Forget1Activity.this, R.string.emailEmpty, Toast.LENGTH_LONG).show();
         } else {
             // request server connection
             String url = Constant.URL +Constant.FORGET_1;
@@ -65,7 +65,7 @@ public class Forget1Activity extends AppCompatActivity {
                     } else {
                         // failure
                         Looper.prepare();
-                        Toast.makeText(Forget1Activity.this, serverResponse.getMessages(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Forget1Activity.this, getResources().getString(R.string.emailNotExists), Toast.LENGTH_LONG).show();
                         Looper.loop();
                     }
                 }
@@ -75,9 +75,6 @@ public class Forget1Activity extends AppCompatActivity {
     }
 
     public void onCancelClicked(View view) {
-//        Intent intent = new Intent(Forget1Activity.this, MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
         finish();
     }
 }

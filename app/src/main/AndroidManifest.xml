@@ -21,8 +21,8 @@
             android:label="@string/new_record">
         </activity>
 
-        <activity android:name=".PersonalInfoCenterActivity"
-            android:label="@string/personal"/>
+        <activity android:name=".ui.me.PersonalInfoCenterActivity"
+            android:label="@string/personal" />
 
         <activity
             android:name=".AppBottomActivity"

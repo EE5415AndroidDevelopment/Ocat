@@ -13,16 +13,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.ocat.R;
+import com.android.ocat.global.Constant;
+import com.android.ocat.global.entity.FinanceSum;
+import com.android.ocat.global.utils.FinanceAlgorithm;
+import com.android.ocat.global.utils.SharedPreferenceUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 public class BookKeepingListAdapter extends BaseAdapter {
-    Context context;
-    private final String [] time_array;
-    private final String[] count_array;
+    private Context context;
+    private SharedPreferenceUtil util;
+    private String [] time_array;
+    private String[] count_array;
+    private int i = 0;
 
     public BookKeepingListAdapter(Context context, String[] time_array, String[] count_array) {
         this.context = context;
         this.time_array = time_array;
         this.count_array = count_array;
+        this.util = new SharedPreferenceUtil(Constant.FILE_NAME, context);
     }
 
     @Override
@@ -60,6 +71,37 @@ public class BookKeepingListAdapter extends BaseAdapter {
         viewHolder.txtCount.setText(count_array[position]);
 
         return convertView;
+    }
+
+    public void update() {
+
+//        System.out.println("++++++++++++++++onUpdate+++++++++++++++++++");
+//        System.out.println(++i);
+
+
+        boolean isRefresh = util.getBoolean(Constant.REFRESH_NOW);
+        // return back from recordNow activity, for fill in the records' id
+        if (isRefresh) {
+            FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(context);
+            financeAlgorithm.requestFinanceDateRange();
+            financeAlgorithm.requestFinanceRecord();
+        }
+
+        Gson gson = new Gson();
+        util = new SharedPreferenceUtil(Constant.FILE_NAME, context);
+        List<String> allDatesList = gson.fromJson(util.getString(Constant.ALL_DATES), new TypeToken<List<String>>() {}.getType());
+        List<FinanceSum> sumList = gson.fromJson(util.getString(Constant.FINANCE_SUM), new TypeToken<List<FinanceSum>>() {}.getType());
+        int arraySize = allDatesList.size();
+        time_array = new String[arraySize];
+        count_array = new String[arraySize];
+        for (int i = 0; i < arraySize; i++) {
+            time_array[i] = allDatesList.get(i);
+            FinanceSum financeSum = sumList.get(i);
+            int sum = financeSum.getTotalIn() - financeSum.getTotalOut();
+            count_array[i] = Integer.toString(sum);
+        }
+
+        notifyDataSetChanged();
     }
 
     private static class ViewHolder {
