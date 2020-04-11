@@ -78,15 +78,6 @@ public class BookKeepingListAdapter extends BaseAdapter {
 //        System.out.println("++++++++++++++++onUpdate+++++++++++++++++++");
 //        System.out.println(++i);
 
-
-        boolean isRefresh = util.getBoolean(Constant.REFRESH_NOW);
-        // return back from recordNow activity, for fill in the records' id
-        if (isRefresh) {
-            FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(context);
-            financeAlgorithm.requestFinanceDateRange();
-            financeAlgorithm.requestFinanceRecord();
-        }
-
         Gson gson = new Gson();
         util = new SharedPreferenceUtil(Constant.FILE_NAME, context);
         List<String> allDatesList = gson.fromJson(util.getString(Constant.ALL_DATES), new TypeToken<List<String>>() {}.getType());

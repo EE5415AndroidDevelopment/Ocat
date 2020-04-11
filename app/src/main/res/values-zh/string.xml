@@ -27,7 +27,7 @@
     <string name="updateFail">更新失败</string>
     <string name="illegalParams">非法参数</string>
     <string name="noRecord">未查到记录</string>
-    <string name="noRecordWelcome">您还没有任何账单记录，现在即开始立即账单</string>
+    <string name="noRecordWelcome">您还没有任何账单记录，开始立即账单</string>
     <string name="deleteFail">删除失败</string>
     <string name="noModificationYet">您的还未修改个人信息</string>
 
@@ -60,6 +60,7 @@
     <string name="warning">警告</string>
     <string name="warning_message_submit">任何修改将被永久提交\n\n此操作不可逆</string>
     <string name="warning_message_delete">你想要删除本条记录吗？</string>
+    <string name="allPlans">所有计划</string>
 
 
     <string name="title_activity_app_bottom">AppBottomActivity</string>
@@ -71,6 +72,12 @@
     <string name="detail_bill">详细账单</string>
     <string name="my_bill">我的账单</string>
     <string name="new_record">新建记录</string>
+    <string name="class_table">课程表</string>
+    <string name="reminder">提醒</string>
+    <string name="about">关于</string>
+    <string name="news">新闻</string>
+    <string name="tranlsation">翻译</string>
+
 
     <string-array name="countries_array">
         <item>人民币</item>

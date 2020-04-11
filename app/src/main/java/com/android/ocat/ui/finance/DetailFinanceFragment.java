@@ -34,6 +34,9 @@ import java.util.List;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
+/**
+ * This shows user's detailed expense each month
+ */
 public class DetailFinanceFragment extends Fragment {
     private ListView mListView;
     private DetailFinanceListAdapter adapter;
@@ -125,6 +128,7 @@ public class DetailFinanceFragment extends Fragment {
         });
 
         okButton.setOnClickListener(new View.OnClickListener() {
+//            boolean flag = false;
             @Override
             public void onClick(final View v) {
                 new AlertDialog.Builder(getContext())
@@ -142,8 +146,15 @@ public class DetailFinanceFragment extends Fragment {
                                         @Override
                                         public void onFinish(String status, String json) {
                                             super.onFinish(status, json);
+//                                            ServerResponse response = gson.fromJson(json, ServerResponse.class);
+//                                            if (response.getStatus() == 0) {
+//                                                flag = true;
+//                                            }
                                         }
                                     });
+//                                    if (!flag) {
+//                                        break;
+//                                    }
                                 }
                                 /**
                                  * update local sharedPreferences
@@ -176,6 +187,10 @@ public class DetailFinanceFragment extends Fragment {
                                 util.putString(Constant.FINANCE_SUM, gson.toJson(sumList));
                                 util.putString(Constant.MONTHLY_RECORD, gson.toJson(allRecords));
 
+                                if (allRecords.size() == 0 || allRecords == null) {
+                                    util.putBoolean(Constant.HAS_RECORD, false);
+                                }
+                                util.putBoolean(Constant.REFRESH_NOW, true);
                                 Navigation.findNavController(v).navigateUp();
                             }
                         })
@@ -190,6 +205,7 @@ public class DetailFinanceFragment extends Fragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                util.putBoolean(Constant.REFRESH_NOW, false);
                 Navigation.findNavController(v).navigateUp();
             }
         });
@@ -198,8 +214,8 @@ public class DetailFinanceFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================Detail Finance Fragment Destroy===============");
     }
-
 }

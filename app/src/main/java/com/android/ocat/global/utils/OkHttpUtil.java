@@ -22,6 +22,7 @@ public class OkHttpUtil {
 
     // post请求
     public static void post(String url, RequestBody requestBody, MyCallBack callBack) {
+        System.out.println("++++++++++++++++++++++++++Post请求+++++++++++++++++++++++++++++++");
         callBack.url = url;
         final Request request = new Request.Builder().url(url).post(requestBody).build();
         CLIENT.newCall(request).enqueue(callBack);

@@ -50,6 +50,7 @@ public class MeFragment extends Fragment {
 //                OkHttpUtil.get(url, new MyCallBack());
 //
                 util.clear();
+                getActivity().finish();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
 

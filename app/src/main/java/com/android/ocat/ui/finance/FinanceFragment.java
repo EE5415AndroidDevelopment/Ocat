@@ -33,6 +33,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is the homepage of Finance, also the currencyRate page
+ */
 public class FinanceFragment extends Fragment {
     private ListView mListView;
     private FinanceRateListAdapter mFinanceRateListAdapter;
@@ -116,6 +119,12 @@ public class FinanceFragment extends Fragment {
     public void onStop() {
         super.onStop();
         isStop = true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================Finance Fragment Destroy===============");
     }
 
     @Override

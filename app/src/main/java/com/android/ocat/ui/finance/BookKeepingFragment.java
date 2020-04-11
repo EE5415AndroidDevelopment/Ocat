@@ -3,6 +3,7 @@ package com.android.ocat.ui.finance;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -23,6 +24,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
+/**
+ * This shows user's general monthly expense
+ */
 public class BookKeepingFragment extends Fragment {
     private ListView mListView;
     private BookKeepingListAdapter mBookKeepingListAdapter;
@@ -31,15 +35,17 @@ public class BookKeepingFragment extends Fragment {
     private int arraySize;
     private String[] time_array, count_array, sum;
     private int i = 0;
+    private Gson gson;
     private boolean flag = false;
+    private final int RESULT_SETTING = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_keeping, container, false);
 
-//        System.out.println("++++++++++++++++onCreateView+++++++++++++++++++");
-//        System.out.println(++i);
-        Gson gson = new Gson();
+        System.out.println("++++++++++++++++onCreateView+++++++++++++++++++");
+        System.out.println(++i);
+        gson = new Gson();
         util = new SharedPreferenceUtil(Constant.FILE_NAME, getContext());
         List<String> allDatesList = gson.fromJson(util.getString(Constant.ALL_DATES), new TypeToken<List<String>>() {}.getType());
         List<FinanceSum> sumList = gson.fromJson(util.getString(Constant.FINANCE_SUM), new TypeToken<List<FinanceSum>>() {}.getType());
@@ -51,6 +57,7 @@ public class BookKeepingFragment extends Fragment {
             FinanceSum financeSum = sumList.get(i);
             int sum = financeSum.getTotalIn() - financeSum.getTotalOut();
             count_array[i] = Integer.toString(sum);
+            System.out.println(count_array[i]);
         }
 
         // ListView
@@ -74,21 +81,29 @@ public class BookKeepingFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (flag) {
-            mBookKeepingListAdapter.update();
-        }
+//        boolean refreshNow = util.getBoolean(Constant.REFRESH_NOW);
+//        System.out.println("++++++++++++++++BookKeepingFragment Resume++++++++++++++++");
+//        System.out.println(refreshNow);
+//        if (refreshNow) {
+//            System.out.println("++++++++++++++++BookKeepingFragment Resume TRUE++++++++++++++++");
+//            FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(getContext());
+//            financeAlgorithm.requestFinanceDateRange();
+//            financeAlgorithm.requestFinanceRecord();
+//            financeAlgorithm.requestFinanceSum();
+//            util.putBoolean(Constant.REFRESH_NOW, false);
+//        }
+        mBookKeepingListAdapter.update();
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        flag = true;
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================BookKeeping Fragment Destroy===============");
     }
 }

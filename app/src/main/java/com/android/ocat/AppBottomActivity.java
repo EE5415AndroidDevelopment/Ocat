@@ -35,6 +35,7 @@ import okhttp3.RequestBody;
 public class AppBottomActivity extends AppCompatActivity {
     private Context context;
     private FinanceAlgorithm financeAlgorithm;
+    private SharedPreferenceUtil util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class AppBottomActivity extends AppCompatActivity {
                 R.id.navigation_hotspots, R.id.navigation_finance, R.id.navigation_me, R.id.navigation_study)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
         /**
@@ -62,5 +63,19 @@ public class AppBottomActivity extends AppCompatActivity {
         financeAlgorithm.requestFinanceDateRange();
         financeAlgorithm.requestFinanceRecord();
         financeAlgorithm.requestFinanceSum();
+        util = new SharedPreferenceUtil(Constant.FILE_NAME, context);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        boolean refreshNow = util.getBoolean(Constant.REFRESH_NOW);
+        if (refreshNow) {
+        System.out.println("++++++++++++++++AppBottomActivity Resume++++++++++++++++");
+            util.putBoolean(Constant.REFRESH_NOW, false);
+            financeAlgorithm.requestFinanceDateRange();
+            financeAlgorithm.requestFinanceRecord();
+            financeAlgorithm.requestFinanceSum();
+        }
     }
 }

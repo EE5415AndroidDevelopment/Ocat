@@ -45,7 +45,7 @@
 
     <string name="welcome">WELCOME!  </string>
     <string name="personal">Personal Information</string>
-    <string name="signIn">SIGN IN</string>
+    <string name="signIn">Sign In</string>
     <string name="signUp">Sign Up</string>
     <string name="forgetPassword">Forget Password</string>
     <string name="submit">SUBMIT</string>
@@ -60,6 +60,7 @@
     <string name="warning">Warning</string>
     <string name="warning_message_submit">Any Modification Will Be Committed Permanently\n\nThis Operation Will Not Be Reversible</string>
     <string name="warning_message_delete">Do you want to delete this record?</string>
+    <string name="allPlans">All Plans</string>
 
     <string name="title_hotspots">Hotspots</string>
     <string name="title_finance">Finance</string>
@@ -70,6 +71,11 @@
     <string name="detail_bill">Detail Bill</string>
     <string name="my_bill">My Bill</string>
     <string name="new_record">New Record</string>
+    <string name="class_table">Class Table</string>
+    <string name="reminder">Reminder</string>
+    <string name="about">About</string>
+    <string name="news">News</string>
+    <string name="tranlsation">Translation</string>
 
     <string-array name="countries_array">
         <item>China</item>
@@ -99,7 +105,6 @@
         <item>Electronics</item>
         <item>Pet</item>
     </string-array>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

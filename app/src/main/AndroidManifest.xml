@@ -17,13 +17,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.finance.RecordNowActivity"
-            android:label="@string/new_record">
-        </activity>
-
-        <activity android:name=".ui.me.PersonalInfoCenterActivity"
+        <activity android:name=".ui.hotspots.NewsContentWebView"></activity>
+        <activity
+            android:name=".ui.study.StudyClassTableAboutActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".ui.study.AddCourseActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".ui.finance.RecordNowActivity"
+            android:label="@string/new_record" />
+        <activity
+            android:name=".ui.me.PersonalInfoCenterActivity"
             android:label="@string/personal" />
-
         <activity
             android:name=".AppBottomActivity"
             android:label="@string/title_activity_app_bottom">

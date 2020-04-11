@@ -4,14 +4,14 @@ public class Constant {
     public static final String URL = "http://47.97.82.78:8080";
 //    public static final String URL = "http://192.168.1.118:8080";
     public static final String URL_CURRENCY_RATE = "https://www.mycurrency.net/US.json";
-//jinghchen8-c@my.cityu.edu.hk
+    public static final String URL_TRANSLATION = "http://api.fanyi.baidu.com/api/trans/vip/translate";
 
     // SMS interval
     public static final int INTERVAL = 1000;
     public static final int PERIOD = 60000;
 
     // MIN Module Number
-    public static final int MIN_RECORD_NOW = 4;
+    public static final int MIN_RECORD_NOW = 5;
 
     // Preference Filename
     public static final String FILE_NAME = "userInfo";
@@ -57,6 +57,11 @@ public class Constant {
     public static final String CURRENCY_VALUE = "currencyValue";
     public static final int FINANCE_IN = 0;
     public static final int FINANCE_OUT = 1;
+    public static final String TRANSLATION_LANGUAGE_EN = "en";
+    public static final String TRANSLATION_LANGUAGE_ZH = "zh";
+    public static final String TRANSLATION_ID = "20200331000409724";
+    public static final String TRANSLATION_SALT = "512";
+    public static final String TRANSLATION_SECRET_KEY = "Yo6x6cy_Slykk3s7_OIt";
 
     // SUCCESS Code
     public static final int SUCCESS = 0;

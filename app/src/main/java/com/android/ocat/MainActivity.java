@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity{
     private String password;
     private String changeText;
     private static final int REQUEST_CODE = 1;
+    private int count = 0;
 
     private Resources resources;
     private Configuration configuration;
@@ -90,20 +91,24 @@ public class MainActivity extends AppCompatActivity{
         // gain user input
         email = emailEdit.getText().toString();
         password = passwordEdit.getText().toString();
+        System.out.println("++++++++++++++MainActivityClicked+++++++++++++++");
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.emailEmpty), Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.passwordEmpty), Toast.LENGTH_LONG).show();
         } else {
+
             // request server connection
             String url = Constant.URL + Constant.LOGIN;
             RequestBody requestBody = new FormBody.Builder().add(Constant.EMAIL, email).add(Constant.PASSWORD,password).build();
+            System.out.println("++++++++++++++++++Prepare Server Request+++++++++++++++++++=");
             OkHttpUtil.post(url,requestBody, new MyCallBack(){
                 @Override
                 public void onFinish(String status, String json) {
                     super.onFinish(status, json);
 
+                    System.out.println("++++++++++++++++++Start Server Request+++++++++++++++++++=");
                     // parsing data
                     Gson gson = new Gson();
                     ServerResponse<User> serverResponse= gson.fromJson(json, new TypeToken<ServerResponse<User>>(){}.getType());
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity{
                         util.putBoolean(Constant.IS_SGININ, true);
                         util.putString(Constant.USER_JSON, gson.toJson(serverResponse.getData()));
                         util.putString("language", changeText);
+                        util.putBoolean(Constant.REFRESH_NOW, false);
 
                         // welcome tip
                         Looper.prepare();
@@ -123,8 +129,8 @@ public class MainActivity extends AppCompatActivity{
                         // activity jump
                                 Intent intent = new Intent(MainActivity.this, AppBottomActivity.class);
                                 startActivity(intent);
+                                finish();
                                 Looper.loop();
-
                     } else {
                         // login fail
                         Looper.prepare();

@@ -2,7 +2,9 @@ package com.android.ocat.ui.finance;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.ocat.Forget2Activity;
+import com.android.ocat.MainActivity;
 import com.android.ocat.R;
 import com.android.ocat.RegisterActivity;
 import com.android.ocat.global.Constant;
@@ -41,6 +45,9 @@ import java.util.List;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
+/**
+ * Record Now
+ */
 public class RecordNowActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     private String[] itemsCategory, itemsCurrencyCode;
@@ -91,7 +98,7 @@ public class RecordNowActivity extends AppCompatActivity {
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM");
         dateString = formatter1.format(date);
 
-        View childView = linearLayout.getChildAt(0);
+        View childView = linearLayout.getChildAt(1);
         initSpinner(childView);
     }
 
@@ -111,9 +118,6 @@ public class RecordNowActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter1);
         spinnerCurrencyCode.setAdapter(adapter2);
         spinnerCurrencyCode.setSelection(1,true);
-
-        EditText editText = view.findViewById(R.id.aEditText);
-
     }
 
     public void onRemoveClicked(View view) {
@@ -212,6 +216,13 @@ public class RecordNowActivity extends AppCompatActivity {
     }
 
     public void onCancelClicked(View view) {
+        sharedPreferenceUtil.putBoolean(Constant.REFRESH_NOW, false);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================RecordNow Activity Destroy===============");
     }
 }
