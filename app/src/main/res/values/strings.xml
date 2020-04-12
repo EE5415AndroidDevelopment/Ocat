@@ -13,6 +13,7 @@
     <string name="sendCodeSuccess">Code Sent Successfully</string>
     <string name="emailEmpty">Fail! Email Can\'t be Null</string>
     <string name="passwordEmpty">Fail! Password Can\'t be Null</string>
+    <string name="inputEmpty">Fail! Input Can\'t be Null</string>
 
     <string name="invalidPassword">Invalid Password</string>
     <string name="userAlreadyExists">User Already Exists</string>
@@ -76,6 +77,8 @@
     <string name="about">About</string>
     <string name="news">News</string>
     <string name="tranlsation">Translation</string>
+    <string name="account_check">Account Check</string>
+    <string name="password_reset">Password Reset</string>
 
     <string-array name="countries_array">
         <item>China</item>

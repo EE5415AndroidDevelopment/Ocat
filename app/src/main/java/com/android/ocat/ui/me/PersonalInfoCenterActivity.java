@@ -52,6 +52,8 @@ public class PersonalInfoCenterActivity extends AppCompatActivity {
         enterCodeEdit = findViewById(R.id.enterCodeEdit);
         codeButton = findViewById(R.id.getCode);
 
+        meUsernameValueText.setLongClickable(false);
+        meUsernameValueText.setTextIsSelectable(false);
     }
 
     @Override

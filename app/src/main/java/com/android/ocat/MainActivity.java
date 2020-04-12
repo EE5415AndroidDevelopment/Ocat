@@ -58,6 +58,7 @@ import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
 public class MainActivity extends AppCompatActivity{
+    private SharedPreferenceUtil util;
     private EditText emailEdit;
     private EditText passwordEdit;
     private TextView change;
@@ -75,16 +76,22 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        util = new SharedPreferenceUtil(Constant.FILE_NAME,MainActivity.this);
+        if (util.getBoolean(Constant.IS_SGININ)) {
+            Intent intent = new Intent(MainActivity.this, AppBottomActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            emailEdit = findViewById(R.id.emailEdit);
+            passwordEdit = findViewById(R.id.passwordEdit);
+            change = findViewById(R.id.userChange);
+            changeText = change.getText().toString();
 
-        emailEdit = findViewById(R.id.emailEdit);
-        passwordEdit = findViewById(R.id.passwordEdit);
-        change = findViewById(R.id.userChange);
-        changeText = change.getText().toString();
-
-        // prepare for switching language
-        resources = getResources();
-        configuration = resources.getConfiguration();
-        displayMetrics = resources.getDisplayMetrics();
+            // prepare for switching language
+            resources = getResources();
+            configuration = resources.getConfiguration();
+            displayMetrics = resources.getDisplayMetrics();
+        }
     }
 
     public void onSignInClicked(View view) {
@@ -117,7 +124,6 @@ public class MainActivity extends AppCompatActivity{
                     if (statusCode == 0) {
                         // login success
                         // save server response
-                        SharedPreferenceUtil util = new SharedPreferenceUtil(Constant.FILE_NAME,MainActivity.this);
                         util.putBoolean(Constant.IS_SGININ, true);
                         util.putString(Constant.USER_JSON, gson.toJson(serverResponse.getData()));
                         util.putString("language", changeText);
@@ -127,10 +133,10 @@ public class MainActivity extends AppCompatActivity{
                         Looper.prepare();
                         Toast.makeText(MainActivity.this, getResources().getString(R.string.welcome)+serverResponse.getData().getUsername(), Toast.LENGTH_SHORT).show();
                         // activity jump
-                                Intent intent = new Intent(MainActivity.this, AppBottomActivity.class);
-                                startActivity(intent);
-                                finish();
-                                Looper.loop();
+                        Intent intent = new Intent(MainActivity.this, AppBottomActivity.class);
+                        startActivity(intent);
+                        finish();
+                        Looper.loop();
                     } else {
                         // login fail
                         Looper.prepare();

@@ -1,180 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
-
-    <LinearLayout
+    android:stretchColumns="2"
+    android:padding="5dp"
+    >
+    <androidx.appcompat.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:minHeight="?attr/actionBarSize"
+        android:padding="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/classTable"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/personal"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TableRow>
+        <TextView
+            android:id="@+id/meUsernameText"
+            android:layout_column="1"
+            android:text="@string/username"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorText"
+            android:gravity="center_vertical"
+            android:layout_height="50dp"
+
+
+            >
+        </TextView>
+
+        <EditText
+            android:id="@+id/meUsernameValueText"
+            android:layout_column="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/colorText"
+            android:gravity="end"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            >
+        </EditText>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/meEmailText"
+            android:layout_column="1"
+            android:text="@string/email"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorText"
+            android:gravity="center_vertical"
+            android:layout_height="50dp"
+
+            >
+        </TextView>
+
+        <EditText
+            android:id="@+id/meEmailValueText"
+            android:layout_column="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:textSize="18sp"
+            android:textColor="@color/colorText"
+            android:gravity="end"
+            >
 
-            <TextView
-                android:id="@+id/meUsernameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/username"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorText"
-                android:gravity="start"
-                >
-            </TextView>
+        </EditText>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/mePhoneText"
+            android:layout_column="1"
+            android:text="@string/phone"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorText"
+            android:gravity="center_vertical"
+            android:layout_height="50dp"
 
-            <EditText
-                android:id="@+id/meUsernameValueText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorText"
-                android:gravity="end"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                >
+            >
+        </TextView>
 
-            </EditText>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+        <EditText
+            android:id="@+id/mePhoneValueText"
+            android:layout_column="2"
+            android:textSize="18sp"
+            android:textColor="@color/colorText"
+            android:inputType="number"
+            android:gravity="end"
+            android:ems="12"
+            >
 
-            <TextView
-                android:id="@+id/meEmailText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorText"
-                android:gravity="start"
-                >
-            </TextView>
+        </EditText>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/enterCodeText"
+            android:layout_column="1"
+            android:text="@string/verificationCode"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorText"
+            android:gravity="center_vertical"
+            android:layout_height="50dp"
 
-            <EditText
-                android:id="@+id/meEmailValueText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorText"
-                android:gravity="end"
-                >
-
-            </EditText>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
-
-            <TextView
-                android:id="@+id/mePhoneText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorText"
-                android:gravity="start"
-                >
-            </TextView>
-
-            <EditText
-                android:id="@+id/mePhoneValueText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorText"
-                android:inputType="number"
-                android:ems="15"
-                android:gravity="end"
-                >
-
-            </EditText>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/enterCodeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/verificationCode"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorText"
-                android:layout_gravity="center"
-                >
-            </TextView>
-            <Button
-                android:id="@+id/getCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/sendCode"
-                android:layout_marginLeft="15dp"
-                android:onClick="onSendCodeClicked"
-                >
-            </Button>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/enterCodeEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hiddenVerificationCode"
-                android:inputType="number"
-                android:ems="6"
-                >
-            </EditText>
-        </LinearLayout>
-
-
+            >
+        </TextView>
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorButtonText"
-            android:text="@string/submit"
-            android:onClick="onSubmitClicked"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:onClick="onCancelClicked"
-            />
+            android:id="@+id/getCode"
+            android:layout_column="2"
+            android:layout_gravity="left"
+            android:text="@string/sendCode"
+            android:onClick="onSendCodeClicked"
+            >
+        </Button>
+    </TableRow>
+    <EditText
+        android:id="@+id/enterCodeEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hiddenVerificationCode"
+        android:inputType="number"
+        android:ems="6"
+        android:textSize="18sp"
 
-    </LinearLayout>
-
-    <!--    <Button-->
-    <!--        android:id="@+id/meChange"-->
-    <!--        android:layout_marginTop="15dp"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:text="@string/change"-->
-    <!--        android:background="@color/colorButtonBackground"-->
-    <!--        android:textColor="@color/colorButtonText"-->
-    <!--        android:layout_marginLeft="5dp"-->
-    <!--        android:layout_marginRight="5dp"-->
-    <!--        >-->
-    <!--    </Button>-->
-
-</LinearLayout>
+        >
+    </EditText>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorButtonText"
+        android:text="@string/submit"
+        android:onClick="onSubmitClicked"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:onClick="onCancelClicked"
+        />
+</TableLayout>

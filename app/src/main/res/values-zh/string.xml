@@ -13,6 +13,7 @@
     <string name="sendCodeSuccess">验证码已发送</string>
     <string name="emailEmpty">邮箱不能为空</string>
     <string name="passwordEmpty">密码不能为空</string>
+    <string name="inputEmpty">输入不能为空</string>
 
     <string name="invalidPassword">密码错误</string>
     <string name="userAlreadyExists">用户已存在</string>
@@ -77,6 +78,8 @@
     <string name="about">关于</string>
     <string name="news">新闻</string>
     <string name="tranlsation">翻译</string>
+    <string name="account_check">账户检查</string>
+    <string name="password_reset">密码重置</string>
 
 
     <string-array name="countries_array">

@@ -29,4 +29,12 @@ public class NewItem {
         this.title = title;
     }
 
+    @Override
+    public String toString() {
+        return "NewItem{" +
+                "title='" + title + '\'' +
+                ", pictureAddress='" + pictureAddress + '\'' +
+                ", contentAddress='" + contentAddress + '\'' +
+                '}';
+    }
 }

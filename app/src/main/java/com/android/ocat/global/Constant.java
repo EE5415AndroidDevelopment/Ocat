@@ -5,6 +5,14 @@ public class Constant {
 //    public static final String URL = "http://192.168.1.118:8080";
     public static final String URL_CURRENCY_RATE = "https://www.mycurrency.net/US.json";
     public static final String URL_TRANSLATION = "http://api.fanyi.baidu.com/api/trans/vip/translate";
+    public static final String URL_NEWS_FINANCE = "https://3g.163.com/touch/reconstruct/article/list/BA8EE5GMwangning/0-20.html";
+    public static final String URL_NEWS_FILM = "https://3g.163.com/touch/reconstruct/article/list/BD2A9LEIwangning/0-20.html";
+    public static final String URL_NEWS_ENTERTAINMENT = "https://3g.163.com/touch/reconstruct/article/list/BA10TA81wangning/0-20.html";
+    public static final String URL_NEWS_TV = "https://3g.163.com/touch/reconstruct/article/list/BD2A86BEwangning/0-20.html";
+    public static final String KEY_NEWS_FINANCE = "BA8EE5GMwangning";
+    public static final String KEY_NEWS_FILM = "BD2A9LEIwangning";
+    public static final String KEY_NEWS_ENTERTAINMENT = "BA10TA81wangning";
+    public static final String KEY_NEWS_TV = "BD2A86BEwangning";
 
     // SMS interval
     public static final int INTERVAL = 1000;

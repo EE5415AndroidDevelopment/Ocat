@@ -2,22 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="fill_parent"
+        android:layout_height="72dp"
+        android:background="#D57733"
+        android:gravity="center"
+        android:text="Translator"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/et_text"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/tv_text"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="66dp"
+        android:layout_marginTop="30dp"
+        android:hint="input"
+        android:textColor="#B1ABAB" />
+
     <Button
         android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="翻译"/>
+        android:layout_width="167dp"
+        android:layout_height="58dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_weight="0"
+        android:background="#FFFFFF"
+        android:text="Go"
+        android:textSize="25sp"/>
+
+    <ImageView
+        android:layout_width="216dp"
+        android:layout_height="82dp"
+        android:layout_gravity="center_horizontal"
+
+        android:src="@drawable/foot"
+        android:layout_marginTop="150dp"/>
 </LinearLayout>

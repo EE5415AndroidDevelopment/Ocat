@@ -6,6 +6,8 @@
     <color name="colorText">#000000</color>
     <color name="colorButtonText">#F8F8FF</color>
     <color name="darkOrange">#FF8C00</color>
+    <color name="orange">#FFDEAD</color>
     <color name="colorWhite">#fdfdfd</color>
     <color name="colorDark">#46dcf7</color>
 </resources>
+

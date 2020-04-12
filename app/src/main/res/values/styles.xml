@@ -16,4 +16,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Base application theme. -->
+<!--    <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/darkOrange</item>-->
+<!--        <item name="colorPrimaryDark">@color/orange</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--    </style>-->
+
 </resources>

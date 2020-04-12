@@ -2,6 +2,7 @@ package com.android.ocat;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.android.ocat.global.Constant;
 import com.android.ocat.global.entity.CurrencyCode;
@@ -9,6 +10,7 @@ import com.android.ocat.global.entity.CurrencyRateResponse;
 import com.android.ocat.global.entity.FinanceCategory;
 import com.android.ocat.global.entity.FinanceInsertData;
 import com.android.ocat.global.entity.FinanceRecord;
+import com.android.ocat.global.entity.NewItem;
 import com.android.ocat.global.entity.Rates;
 import com.android.ocat.global.entity.ServerResponse;
 import com.android.ocat.global.entity.User;
@@ -26,16 +28,23 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class AppBottomActivity extends AppCompatActivity {
     private Context context;
     private FinanceAlgorithm financeAlgorithm;
     private SharedPreferenceUtil util;
+    public static List<NewItem> newItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,7 @@ public class AppBottomActivity extends AppCompatActivity {
         financeAlgorithm.requestFinanceRecord();
         financeAlgorithm.requestFinanceSum();
         util = new SharedPreferenceUtil(Constant.FILE_NAME, context);
+
     }
 
     @Override
@@ -71,7 +81,7 @@ public class AppBottomActivity extends AppCompatActivity {
         super.onResume();
         boolean refreshNow = util.getBoolean(Constant.REFRESH_NOW);
         if (refreshNow) {
-        System.out.println("++++++++++++++++AppBottomActivity Resume++++++++++++++++");
+            System.out.println("++++++++++++++++AppBottomActivity Resume++++++++++++++++");
             util.putBoolean(Constant.REFRESH_NOW, false);
             financeAlgorithm.requestFinanceDateRange();
             financeAlgorithm.requestFinanceRecord();
