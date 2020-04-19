@@ -2,35 +2,22 @@ package com.android.ocat.ui.finance;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.ocat.Forget2Activity;
-import com.android.ocat.MainActivity;
 import com.android.ocat.R;
-import com.android.ocat.RegisterActivity;
 import com.android.ocat.global.Constant;
 import com.android.ocat.global.entity.CurrencyCode;
 import com.android.ocat.global.entity.FinanceCategory;
-import com.android.ocat.global.entity.FinanceInsertData;
-import com.android.ocat.global.entity.FinanceInsertRequest;
 import com.android.ocat.global.entity.FinanceRecord;
 import com.android.ocat.global.entity.FinanceSum;
 import com.android.ocat.global.entity.User;
-import com.android.ocat.global.utils.FinanceAlgorithm;
 import com.android.ocat.global.utils.MyCallBack;
 import com.android.ocat.global.utils.OkHttpUtil;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
@@ -107,7 +94,7 @@ public class RecordNowActivity extends AppCompatActivity {
         View newView = inflater.inflate(R.layout.layout_edit, null, false);
         initSpinner(newView);
 
-        linearLayout.addView(newView, linearLayout.getChildCount() - Constant.MIN_RECORD_NOW + 1);
+        linearLayout.addView(newView, linearLayout.getChildCount() - 3);
     }
 
     private void initSpinner(View view) {
@@ -143,7 +130,7 @@ public class RecordNowActivity extends AppCompatActivity {
             newSum.setTotalIn(0);
             newSum.setTotalOut(0);
         }
-        for (int i = linearLayout.getChildCount() - 4; i >= 0; i--) {
+        for (int i = linearLayout.getChildCount() - 4; i >= 1; i--) {
             inOut = 1;
 
             View childView = linearLayout.getChildAt(i);

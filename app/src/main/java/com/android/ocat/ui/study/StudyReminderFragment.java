@@ -2,36 +2,37 @@ package com.android.ocat.ui.study;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
-import com.android.ocat.MainActivity;
 import com.android.ocat.R;
-import com.android.ocat.global.Constant;
+import com.android.ocat.global.db.ClassDatabaseHelper;
+import com.android.ocat.global.entity.Course;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class StudyReminderFragment extends Fragment {
     private int year, month, day;//获取今天的日月年
     private DatePicker datePicker;
     private Toolbar toolbar;
     private SharedPreferenceUtil util;
+    private View view;
 
-    // update toolbar menu when fragment is visible
+//    // update toolbar menu when fragment is visible
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -43,10 +44,8 @@ public class StudyReminderFragment extends Fragment {
                     int id = item.getItemId();
                     switch (id) {
                         case R.id.reminderAdd:
+                            Navigation.findNavController(view).navigate(R.id.navigation_toDoList);
                             return true;
-//                    case R.id.reminderAllPlans:
-//                        Toast.makeText(getContext(), "allPlans", Toast.LENGTH_LONG).show();
-//                        return true;
                     }
                     return false;
                 }
@@ -59,10 +58,43 @@ public class StudyReminderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_study_reminder, container, false);
+        view = inflater.inflate(R.layout.fragment_study_reminder, container, false);
         setHasOptionsMenu(true);
 
         datePicker = view.findViewById(R.id.datePicker);
+
+        /**
+         * 方式一：直接调用（）
+         */
+//        System.out.println("++++++++++++++++++CourseList++++++++++++++++++++++");
+//        List<Course> coursesList = StudyClassTableFragment.coursesList;
+//        for (Course course : coursesList) {
+//            System.out.println(course);
+//        }
+        /**
+         *  方式二：数据库读取（）
+         */
+        ClassDatabaseHelper databaseHelper = new ClassDatabaseHelper(view.getContext(), "database.db", null, 1);
+//        DatabaseHelper databaseHelper = StudyClassTableFragment.databaseHelper;
+
+        List<Course> coursesList = new ArrayList<>(); //课程列表
+        SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from courses", null);
+        if (cursor.moveToFirst()) {
+            do {
+                coursesList.add(new Course(
+                        cursor.getString(cursor.getColumnIndex("course_name")),
+                        cursor.getString(cursor.getColumnIndex("teacher")),
+                        cursor.getString(cursor.getColumnIndex("class_room")),
+                        cursor.getInt(cursor.getColumnIndex("day")),
+                        cursor.getInt(cursor.getColumnIndex("class_start")),
+                        cursor.getInt(cursor.getColumnIndex("class_end"))));
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        for (Course course : coursesList) {
+            System.out.println(course);
+        }
 
         Calendar calendar = Calendar.getInstance();
         /**
@@ -84,7 +116,6 @@ public class StudyReminderFragment extends Fragment {
                 shoulddo(year, month, day);
             }
         });
-
 
         return view;
     }
@@ -108,4 +139,11 @@ public class StudyReminderFragment extends Fragment {
         builder.create();
         builder.show();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================StudyReminderFragment Destroy===============");
+    }
+
 }

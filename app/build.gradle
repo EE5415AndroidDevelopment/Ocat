@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.android.ocat"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -45,4 +45,6 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.9.2'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'org.springframework:spring-core:4.3.26.RELEASE'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
+    implementation 'com.google.android.gms:play-services-ads:19.0.1'
 }

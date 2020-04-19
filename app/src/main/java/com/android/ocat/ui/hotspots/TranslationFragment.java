@@ -92,7 +92,6 @@ public class TranslationFragment extends Fragment {
             public void onFinish(String status, String json) {
                 super.onFinish(status, json);
                 Gson gson = new Gson();
-                System.out.println("++++++++++++++++++++++++++++++++++");
                 // parse json
                 TranslateJson translateJson = gson.fromJson(json, TranslateJson.class);
                 String result = translateJson.getTransResult().get(0).getDst();
@@ -102,6 +101,12 @@ public class TranslationFragment extends Fragment {
                 handler.sendMessage(message);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================TranslationFragment Destroy===============");
     }
 
 }

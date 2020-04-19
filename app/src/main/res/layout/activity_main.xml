@@ -3,19 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="5dp">
-
+    android:padding="5dp"
+    android:background="@drawable/bg">
+    <com.android.ocat.global.utils.MusicButton
+        android:id="@+id/music"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/music"
+        android:layout_gravity="right">
+    </com.android.ocat.global.utils.MusicButton>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:src="@drawable/logo_title"
+        android:layout_gravity="center">
+    </ImageView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/logo_title"
-            android:layout_gravity="center">
-        </ImageView>
 
         <TextView
             android:id="@+id/emailText"
@@ -23,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/email"
             android:textSize="20sp"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorTextOrange"
             android:gravity="left"
             android:layout_marginTop="15dp"
             >
@@ -37,6 +43,8 @@
             android:inputType="text"
             android:ems="15"
             android:layout_marginRight="5dp"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
             >
         </EditText>
     </LinearLayout>
@@ -50,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="@string/password"
             android:textSize="20sp"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorTextOrange"
             android:gravity="left">
 
         </TextView>
@@ -61,6 +69,8 @@
             android:hint="@string/hiddenPassword"
             android:inputType="textPassword"
             android:ems="20"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
             >
         </EditText>
     </LinearLayout>
@@ -90,6 +100,7 @@
             android:text="@string/signUp"
             android:textSize="15sp"
             android:onClick="onSignUpClicked"
+            android:textColor="@color/colorTextOrange"
             >
         </TextView>
 
@@ -99,7 +110,8 @@
             android:layout_height="wrap_content"
             android:text="@string/forgetPassword"
             android:textSize="15sp"
-            android:onClick="onForgetClicked">
+            android:onClick="onForgetClicked"
+            android:textColor="@color/colorTextOrange">
         </TextView>
 
         <TextView
@@ -108,7 +120,8 @@
             android:layout_height="wrap_content"
             android:text="@string/change"
             android:textSize="15sp"
-            android:onClick="onSwitchLanguageClicked">
+            android:onClick="onSwitchLanguageClicked"
+            android:textColor="@color/colorTextOrange">
         </TextView>
     </LinearLayout>
 

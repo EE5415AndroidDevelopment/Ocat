@@ -15,21 +15,21 @@ public class MyCallBack implements Callback {
 
     @Override
     public void onFailure(Call call, IOException e) {
-        Log.d(TAG, "url: " + url);
-        Log.d(TAG, "请求失败: " + e.toString());
+//        Log.d(TAG, "url: " + url);
+//        Log.d(TAG, "请求失败: " + e.toString());
         onFinish("failure", e.toString());
 
     }
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
-        Log.d(TAG, "url: " + url);
+//        Log.d(TAG, "url: " + url);
         json = response.body().string();
-        Log.d(TAG, "请求成功: " + json);
+//        Log.d(TAG, "请求成功: " + json);
         onFinish("success", json);
     }
 
     public void onFinish(String status, String json) {
-        Log.d(TAG, "url: " + url + "&status: " + status);
+//        Log.d(TAG, "url: " + url + "&status: " + status);
     }
 }

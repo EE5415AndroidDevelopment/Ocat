@@ -9,6 +9,8 @@ public class Constant {
     public static final String URL_NEWS_FILM = "https://3g.163.com/touch/reconstruct/article/list/BD2A9LEIwangning/0-20.html";
     public static final String URL_NEWS_ENTERTAINMENT = "https://3g.163.com/touch/reconstruct/article/list/BA10TA81wangning/0-20.html";
     public static final String URL_NEWS_TV = "https://3g.163.com/touch/reconstruct/article/list/BD2A86BEwangning/0-20.html";
+
+    // NEWS KEY
     public static final String KEY_NEWS_FINANCE = "BA8EE5GMwangning";
     public static final String KEY_NEWS_FILM = "BD2A9LEIwangning";
     public static final String KEY_NEWS_ENTERTAINMENT = "BA10TA81wangning";
@@ -16,7 +18,7 @@ public class Constant {
 
     // SMS interval
     public static final int INTERVAL = 1000;
-    public static final int PERIOD = 60000;
+    public static final int PERIOD = 30000;
 
     // MIN Module Number
     public static final int MIN_RECORD_NOW = 5;
@@ -30,8 +32,11 @@ public class Constant {
     public static final String ALL_DATES = "allDates";
     public static final String MONTHLY_RECORD = "monthlyRecord";
     public static final String REFRESH_NOW = "refreshNow";
+    public static final String DB_INITIALIZE = "dbInitialize";
     public static final String FINANCE_SUM = "financeSum";
     public static final String HAS_RECORD = "hasRecord";
+    public static final String HAS_CONNECTION = "hasConnection";
+    public static final String LANGUAGE = "language";
 
     // URL Request
     public static final String LOGIN = "/user/login";
@@ -45,6 +50,9 @@ public class Constant {
     public static final String FINANCE_INSERT_ONE = "/finance/insertOne";
     public static final String FINANCE_DELETE_ONE = "/finance/deleteOne";
     public static final String FINANCE_SELECT_SUM = "/finance/selectSum";
+    public static final String COURSE_SELECT_ALL = "/course/selectAll";
+    public static final String COURSE_INSERT_ONE = "/course/insertOne";
+    public static final String COURSE_DELETE_COURSE = "/course/deleteCourse";
 
     // URL Request Parameters
     public static final String USERNAME = "username";
@@ -70,6 +78,12 @@ public class Constant {
     public static final String TRANSLATION_ID = "20200331000409724";
     public static final String TRANSLATION_SALT = "512";
     public static final String TRANSLATION_SECRET_KEY = "Yo6x6cy_Slykk3s7_OIt";
+    public static final String COURSE_NAME = "courseName";
+    public static final String TEACHER = "teacher";
+    public static final String CLASS_ROOM = "classRoom";
+    public static final String DAY = "day";
+    public static final String CLASS_START = "classStart";
+    public static final String CLASS_END = "classEnd";
 
     // SUCCESS Code
     public static final int SUCCESS = 0;
@@ -98,5 +112,9 @@ public class Constant {
     public static final int ILLEGAL_PARAM = 21;
     public static final int NO_RECORD = 22;
     public static final int DELETE_FAIL = 23;
+    public static final int INSERT_FAIL = 24;
+
+    public static final int SOUND_EFFECT_SUCCESS = 0;
+    public static final int SOUND_EFFECT_ERROR = 1;
 
 }

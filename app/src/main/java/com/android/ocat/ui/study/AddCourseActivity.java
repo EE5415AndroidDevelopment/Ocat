@@ -16,12 +16,17 @@ import com.android.ocat.R;
 import com.android.ocat.global.entity.Course;
 
 public class AddCourseActivity extends AppCompatActivity {
+    private int uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
         setFinishOnTouchOutside(false);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        uid = bundle.getInt("uid");
 
         final EditText inputCourseName = (EditText) findViewById(R.id.course_name);
         final EditText inputTeacher = (EditText) findViewById(R.id.teacher_name);
@@ -42,7 +47,16 @@ public class AddCourseActivity extends AppCompatActivity {
                 String end = inputEnd.getText().toString();
 
                 if (courseName.equals("") || day.equals("") || start.equals("") || end.equals("")) {
-                    Toast.makeText(AddCourseActivity.this, "基本课程信息未填写", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCourseActivity.this, getResources().getString(R.string.inputEmpty), Toast.LENGTH_SHORT).show();
+                } else if (Integer.parseInt(day) < 1 ||
+                        Integer.parseInt(day) > 7 ||
+                        Integer.parseInt(start) > 24 ||
+                        Integer.parseInt(start) < 0 ||
+                        Integer.parseInt(end) > 24 ||
+                        Integer.parseInt(end) < 0 ||
+                        Integer.parseInt(end) < Integer.parseInt(start)) {
+                    Toast.makeText(AddCourseActivity.this, getResources().getString(R.string.illegalParams), Toast.LENGTH_SHORT).show();
+
                 } else {
                     Course course = new Course(courseName, teacher, classRoom,
                             Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
@@ -58,4 +72,11 @@ public class AddCourseActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================AddCourseActivity Destroy===============");
+    }
+
 }

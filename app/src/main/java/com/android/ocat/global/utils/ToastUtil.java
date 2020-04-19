@@ -45,6 +45,9 @@ public class ToastUtil {
             case Constant.DELETE_FAIL:
                 Toast.makeText(context, context.getResources().getString(R.string.deleteFail), Toast.LENGTH_LONG).show();
                 break;
+            case Constant.INSERT_FAIL:
+                Toast.makeText(context, context.getResources().getString(R.string.insertFail), Toast.LENGTH_LONG).show();
+                break;
         }
     }
 }

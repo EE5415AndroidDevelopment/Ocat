@@ -4,13 +4,14 @@
     android:background="@color/colorPrimary"
     android:layout_height="?attr/actionBarSize"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <ImageButton
+    <ImageView
 
         android:id="@+id/back"
-        android:src="@drawable/back"
+        android:src="@mipmap/back"
         android:layout_gravity="center_vertical"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         />
     <TextView
 
@@ -19,5 +20,6 @@
         android:textSize="25dp"
         android:layout_gravity="center"
         android:textColor="@color/colorWhite"
-        android:text="            WeNews"/>
+        android:text="WeNews"
+        android:layout_marginStart="10dp"/>
 </LinearLayout>

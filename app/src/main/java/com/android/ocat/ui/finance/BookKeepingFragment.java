@@ -77,8 +77,10 @@ public class BookKeepingFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RecordNowActivity.class);
-                startActivity(intent);
+                if (util.getBoolean(Constant.HAS_CONNECTION)) {
+                    Intent intent = new Intent(getActivity(), RecordNowActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         return view;

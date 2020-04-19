@@ -1,32 +1,19 @@
 package com.android.ocat.ui.study;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.ocat.R;
-import com.android.ocat.global.Constant;
-import com.android.ocat.global.entity.Course;
-import com.android.ocat.global.utils.SharedPreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +26,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
     private List<Fragment> fragmentList;
     private FragmentPagerAdapter adapter;
     static Toolbar toolbar;
+    private SwipeRefreshLayout refreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_study, container, false);
@@ -46,6 +34,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
         classTableTextView = view.findViewById(R.id.classTable);
         reminderTextView = view.findViewById(R.id.reminder);
         viewPager = view.findViewById(R.id.viewPager);
+        refreshLayout = view.findViewById(R.id.pullToRefresh);
 
         // init toolbar
         toolbar = view.findViewById(R.id.toolbar);
@@ -58,8 +47,8 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
         reminderTextView.setOnClickListener(this);
 
         // add fragments
-        StudyClassTableFragment f1 = new StudyClassTableFragment();
-        StudyReminderFragment f2 = new StudyReminderFragment();
+        final StudyClassTableFragment f1 = new StudyClassTableFragment();
+        final StudyReminderFragment f2 = new StudyReminderFragment();
         fragmentList = new ArrayList<>();
         fragmentList.add(f1);
         fragmentList.add(f2);
@@ -77,7 +66,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
             }
         };
         viewPager.setAdapter(adapter);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -96,7 +85,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
                     case 1:
                         resetColor();
                         toolbar.getMenu().clear();
-                        toolbar.inflateMenu(R.menu.reminder_options);
+                        toolbar.inflateMenu(R.menu.reminder_add);
                         reminderTextView.setTextColor(getResources().getColor(R.color.darkOrange));
                         viewPager.setCurrentItem(1);
                         break;
@@ -105,9 +94,34 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                switch (state) {
+                    case ViewPager.SCROLL_STATE_DRAGGING:
+                        refreshLayout.setEnabled(false);
+                        break;
+                    case ViewPager.SCROLL_STATE_SETTLING:
+                        refreshLayout.setEnabled(true);
+                        break;
+                }
             }
         });
+
+        // pull to refresh
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                switch (viewPager.getCurrentItem()){
+                    case 0:
+                        // overwrite db from server
+                        f1.syncServer();
+                        break;
+//                    case 1:
+//                        f2.GetNews();
+//                        break;
+                }
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
 
         return view;
     }
@@ -136,10 +150,17 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
             case R.id.reminder:
                 resetColor();
                 toolbar.getMenu().clear();
-                toolbar.inflateMenu(R.menu.reminder_options);
+                toolbar.inflateMenu(R.menu.reminder_add);
                 reminderTextView.setTextColor(getResources().getColor(R.color.darkOrange));
                 viewPager.setCurrentItem(1);
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================StudyFragment Destroy===============");
+    }
+
 }

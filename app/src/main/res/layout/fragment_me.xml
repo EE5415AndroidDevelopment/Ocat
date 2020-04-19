@@ -48,6 +48,19 @@
     <!--        >-->
     <!--    </Button>-->
 
+    <Button
+        android:id="@+id/meQuit"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/quit"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorButtonText"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        >
+    </Button>
 
     <Button
         android:id="@+id/meLogOut"

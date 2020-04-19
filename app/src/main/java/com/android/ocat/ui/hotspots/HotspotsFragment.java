@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.ocat.R;
+import com.android.ocat.global.Constant;
+import com.android.ocat.global.utils.SharedPreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,8 @@ public class HotspotsFragment extends Fragment implements View.OnClickListener {
     private FragmentPagerAdapter adapter;
     private Toolbar toolbar;
     private ViewPager viewPager;
+    private SharedPreferenceUtil util;
+    private boolean hasConnection;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hotspots, container, false);
@@ -34,6 +38,8 @@ public class HotspotsFragment extends Fragment implements View.OnClickListener {
         translationTextView = view.findViewById(R.id.translation);
         toolbar = view.findViewById(R.id.toolbar);
         viewPager = view.findViewById(R.id.viewPager);
+        util = new SharedPreferenceUtil(Constant.FILE_NAME, getContext());
+        hasConnection = util.getBoolean(Constant.HAS_CONNECTION);
 
         newsTextView.setOnClickListener(this);
         translationTextView.setOnClickListener(this);
@@ -59,6 +65,37 @@ public class HotspotsFragment extends Fragment implements View.OnClickListener {
             }
         };
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        resetColor();
+                        newsTextView.setTextColor(getResources().getColor(R.color.darkOrange));
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case 1:
+                        if (hasConnection) {
+                            resetColor();
+                            translationTextView.setTextColor(getResources().getColor(R.color.darkOrange));
+                            viewPager.setCurrentItem(1);
+                            break;
+                        }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
         return view;
     }
 
@@ -71,10 +108,12 @@ public class HotspotsFragment extends Fragment implements View.OnClickListener {
                 viewPager.setCurrentItem(0);
                 break;
             case R.id.translation:
-                resetColor();
-                translationTextView.setTextColor(getResources().getColor(R.color.darkOrange));
-                viewPager.setCurrentItem(1);
-                break;
+                if (hasConnection) {
+                    resetColor();
+                    translationTextView.setTextColor(getResources().getColor(R.color.darkOrange));
+                    viewPager.setCurrentItem(1);
+                    break;
+                }
         }
 
     }

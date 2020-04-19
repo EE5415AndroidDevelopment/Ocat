@@ -2,11 +2,16 @@ package com.android.ocat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,6 +45,8 @@ public class Forget1Activity extends AppCompatActivity {
         // check input validity
         // check null value
         if (TextUtils.isEmpty(email)) {
+            playSound();
+            animationShake(emailEdit);
             Toast.makeText(Forget1Activity.this, R.string.emailEmpty, Toast.LENGTH_LONG).show();
         } else {
             // request server connection
@@ -65,6 +72,7 @@ public class Forget1Activity extends AppCompatActivity {
                     } else {
                         // failure
                         Looper.prepare();
+                        playSound();
                         Toast.makeText(Forget1Activity.this, getResources().getString(R.string.emailNotExists), Toast.LENGTH_LONG).show();
                         Looper.loop();
                     }
@@ -74,8 +82,28 @@ public class Forget1Activity extends AppCompatActivity {
 
     }
 
+    private void playSound() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(Forget1Activity.this, R.raw.error);
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        mediaPlayer.start();
+    }
+
     public void onCancelClicked(View view) {
         finish();
     }
+
+    private void animationShake(EditText editText) {
+        Animation shake = AnimationUtils.loadAnimation(Forget1Activity.this, R.anim.shake);
+        editText.startAnimation(shake);
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(editText, 0);
+        editText.setHintTextColor(getResources().getColor(R.color.colorAccent));
+    }
+
 }
 

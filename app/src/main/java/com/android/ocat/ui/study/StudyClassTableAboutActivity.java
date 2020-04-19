@@ -13,4 +13,11 @@ public class StudyClassTableAboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_class_table_about);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================TranslationFragment Fragment Destroy===============");
+    }
+
 }

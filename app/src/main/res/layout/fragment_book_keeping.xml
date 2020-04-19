@@ -38,11 +38,15 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        app:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="100dp"
+        app:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@mipmap/add"
+        android:backgroundTint="@color/colorTextOrange"
+        app:borderWidth="0dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

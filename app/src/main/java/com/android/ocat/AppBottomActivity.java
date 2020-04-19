@@ -1,26 +1,15 @@
 package com.android.ocat;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.android.ocat.global.Constant;
-import com.android.ocat.global.entity.CurrencyCode;
-import com.android.ocat.global.entity.CurrencyRateResponse;
-import com.android.ocat.global.entity.FinanceCategory;
-import com.android.ocat.global.entity.FinanceInsertData;
-import com.android.ocat.global.entity.FinanceRecord;
 import com.android.ocat.global.entity.NewItem;
-import com.android.ocat.global.entity.Rates;
-import com.android.ocat.global.entity.ServerResponse;
-import com.android.ocat.global.entity.User;
 import com.android.ocat.global.utils.FinanceAlgorithm;
-import com.android.ocat.global.utils.MyCallBack;
-import com.android.ocat.global.utils.OkHttpUtil;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -28,17 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class AppBottomActivity extends AppCompatActivity {
     private Context context;
@@ -66,26 +45,41 @@ public class AppBottomActivity extends AppCompatActivity {
          * request user finance record
          */
         context = AppBottomActivity.this;
-        financeAlgorithm = new FinanceAlgorithm(context);
-        final String[] currency_code = getResources().getStringArray(R.array.currency_code);
-        financeAlgorithm.requestCurrencyRate(currency_code);
-        financeAlgorithm.requestFinanceDateRange();
-        financeAlgorithm.requestFinanceRecord();
-        financeAlgorithm.requestFinanceSum();
         util = new SharedPreferenceUtil(Constant.FILE_NAME, context);
+        if (util.getBoolean(Constant.HAS_CONNECTION)) {
+            financeAlgorithm = new FinanceAlgorithm(context);
+            final String[] currency_code = getResources().getStringArray(R.array.currency_code);
+            financeAlgorithm.requestCurrencyRate(currency_code);
+            financeAlgorithm.requestFinanceDateRange();
+            financeAlgorithm.requestFinanceRecord();
+            financeAlgorithm.requestFinanceSum();
+        } else {
+            new AlertDialog.Builder(AppBottomActivity.this)
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .setTitle(R.string.error)
+                    .setMessage(R.string.noNetworkConnection)
+                    .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .show();
+        }
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        boolean refreshNow = util.getBoolean(Constant.REFRESH_NOW);
-        if (refreshNow) {
-            System.out.println("++++++++++++++++AppBottomActivity Resume++++++++++++++++");
-            util.putBoolean(Constant.REFRESH_NOW, false);
-            financeAlgorithm.requestFinanceDateRange();
-            financeAlgorithm.requestFinanceRecord();
-            financeAlgorithm.requestFinanceSum();
+        if (util.getBoolean(Constant.HAS_CONNECTION)) {
+            boolean refreshNow = util.getBoolean(Constant.REFRESH_NOW);
+            if (refreshNow) {
+                System.out.println("++++++++++++++++AppBottomActivity Resume++++++++++++++++");
+                util.putBoolean(Constant.REFRESH_NOW, false);
+                financeAlgorithm.requestFinanceDateRange();
+                financeAlgorithm.requestFinanceRecord();
+                financeAlgorithm.requestFinanceSum();
+            }
         }
     }
 }

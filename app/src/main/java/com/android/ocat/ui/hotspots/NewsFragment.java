@@ -116,6 +116,14 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onPageScrollStateChanged(int state) {
+                switch (state) {
+                    case ViewPager.SCROLL_STATE_DRAGGING:
+                        refreshLayout.setEnabled(false);
+                        break;
+                    case ViewPager.SCROLL_STATE_SETTLING:
+                        refreshLayout.setEnabled(true);
+                        break;
+                }
 
             }
         });
@@ -173,5 +181,11 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================NewsFragment Destroy===============");
     }
 }

@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="\n课程名:" />
+                android:text="@string/courseName" />
             <EditText
                 android:id="@+id/course_name"
                 android:layout_width="90dp"
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="\n星期几:" />
+                android:text="@string/dayOfWeek" />
             <EditText
                 android:id="@+id/week"
                 android:layout_width="30dp"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="\几点开始:" />
+                android:text="@string/startIndex" />
             <EditText
                 android:id="@+id/classes_begin"
                 android:layout_width="30dp"
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="\n几点结束:" />
+                android:text="@string/endIndex" />
             <EditText
                 android:id="@+id/classes_ends"
                 android:layout_width="30dp"
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="\n教师名:" />
+                android:text="@string/teacher" />
             <EditText
                 android:id="@+id/teacher_name"
                 android:layout_width="90dp"
@@ -101,12 +101,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_gravity="center"
-        android:text="完成" />
+        android:text="@string/submit" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="\n 在课程表界面长按一个课程可以删除它 \n"/>
+        android:text="@string/classLongPress"/>
 
 </LinearLayout>

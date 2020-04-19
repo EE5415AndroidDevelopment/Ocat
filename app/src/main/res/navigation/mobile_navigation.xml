@@ -18,7 +18,7 @@
         android:label="@string/daily_rate"
         tools:layout="@layout/fragment_finance">
         <action
-            android:id="@+id/one2two"
+            android:id="@+id/financeOne2two"
             app:destination="@id/navigation_bookKeeping" />
     </fragment>
 
@@ -26,7 +26,12 @@
         android:id="@+id/navigation_study"
         android:name="com.android.ocat.ui.study.StudyFragment"
         android:label="@string/title_study"
-        tools:layout="@layout/fragment_study" />
+        tools:layout="@layout/fragment_study">
+        <action
+        android:id="@+id/ReminderOne2Two"
+        app:destination="@id/navigation_toDoList" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_me"
@@ -40,7 +45,7 @@
         android:label="@string/my_bill"
         tools:layout="@layout/fragment_book_keeping">
         <action
-            android:id="@+id/two2three"
+            android:id="@+id/FinanceTwo2three"
             app:destination="@id/navigation_detailFinance" />
     </fragment>
 
@@ -49,4 +54,9 @@
         android:name="com.android.ocat.ui.finance.DetailFinanceFragment"
         android:label="@string/detail_bill"
         tools:layout="@layout/fragment_detail_finance" />
+
+    <fragment
+        android:id="@+id/navigation_toDoList"
+        android:name="com.android.ocat.ui.study.StudyReminderToDoListFragment"
+        tools:layout="@layout/fragment_study_reminder_to_do_list" />
 </navigation>

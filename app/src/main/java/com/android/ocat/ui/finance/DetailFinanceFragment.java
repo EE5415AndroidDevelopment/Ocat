@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.ocat.R;
+import com.android.ocat.WelcomeActivity;
 import com.android.ocat.global.Constant;
 import com.android.ocat.global.entity.FinanceRecord;
 import com.android.ocat.global.entity.FinanceSum;
@@ -104,26 +105,40 @@ public class DetailFinanceFragment extends Fragment {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, long id) {
-                new AlertDialog.Builder(getContext())
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle(R.string.warning)
-                        .setMessage(R.string.warning_message_delete)
-                        .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                if (util.getBoolean(Constant.HAS_CONNECTION)) {
+                    new AlertDialog.Builder(getContext())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.warning)
+                            .setMessage(R.string.warning_message_delete)
+                            .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                financeCategory.remove(position);
-                                inOut.remove(position);
-                                currencyCode.remove(position);
-                                currencyValue.remove(position);
-                                deleteId.add(recordId.get(position));
-                                recordId.remove(position);
-                                adapter.notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton(getResources().getString(R.string.cancel), null)
-                        .show();
-                return true;
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    financeCategory.remove(position);
+                                    inOut.remove(position);
+                                    currencyCode.remove(position);
+                                    currencyValue.remove(position);
+                                    deleteId.add(recordId.get(position));
+                                    recordId.remove(position);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(getResources().getString(R.string.cancel), null)
+                            .show();
+                    return true;
+                } else {
+                    new AlertDialog.Builder(getContext())
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setTitle(R.string.error)
+                            .setMessage(R.string.noNetworkConnection)
+                            .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                    return false;
+                }
             }
         });
 
@@ -131,74 +146,76 @@ public class DetailFinanceFragment extends Fragment {
 //            boolean flag = false;
             @Override
             public void onClick(final View v) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle(R.string.warning)
-                        .setMessage(getResources().getString(R.string.warning_message_submit))
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String url = Constant.URL + Constant.FINANCE_DELETE_ONE;
-                                for (Integer id: deleteId) {
-                                    RequestBody requestBody = new FormBody.Builder()
-                                            .add(Constant.ID, Integer.toString(id))
-                                            .build();
-                                    OkHttpUtil.post(url, requestBody, new MyCallBack(){
-                                        @Override
-                                        public void onFinish(String status, String json) {
-                                            super.onFinish(status, json);
-//                                            ServerResponse response = gson.fromJson(json, ServerResponse.class);
-//                                            if (response.getStatus() == 0) {
-//                                                flag = true;
-//                                            }
-                                        }
-                                    });
-//                                    if (!flag) {
-//                                        break;
-//                                    }
-                                }
-                                /**
-                                 * update local sharedPreferences
-                                 */
-                                allRecords.remove(index);
-                                sumList.remove(index);
-                                if (size == deleteId.size()) {
-                                    // if clear all monthly records
-                                    allDates.remove(index);
-                                    util.putString(Constant.ALL_DATES, gson.toJson(allDates));
-                                } else {
-                                    // update local data
-                                    for (int i = records.size() - 1; i >= 0; i--) {
-                                        for (int id : deleteId) {
-                                            FinanceRecord record = records.get(i);
-                                            if (record.getId() == id) {
-                                                if (record.getInOut() == 0) {
-                                                    sum.setTotalIn(sum.getTotalIn() - Integer.parseInt(record.getCurrencyValue()));
-                                                } else {
-                                                    sum.setTotalOut(sum.getTotalOut() - Integer.parseInt(record.getCurrencyValue()));
+                if (util.getBoolean(Constant.HAS_CONNECTION)) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.warning)
+                            .setMessage(getResources().getString(R.string.warning_message_submit))
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String url = Constant.URL + Constant.FINANCE_DELETE_ONE;
+                                    for (Integer id: deleteId) {
+                                        RequestBody requestBody = new FormBody.Builder()
+                                                .add(Constant.ID, Integer.toString(id))
+                                                .build();
+                                        OkHttpUtil.post(url, requestBody, new MyCallBack(){
+                                            @Override
+                                            public void onFinish(String status, String json) {
+                                                super.onFinish(status, json);
+    //                                            ServerResponse response = gson.fromJson(json, ServerResponse.class);
+    //                                            if (response.getStatus() == 0) {
+    //                                                flag = true;
+    //                                            }
+                                            }
+                                        });
+    //                                    if (!flag) {
+    //                                        break;
+    //                                    }
+                                    }
+                                    /**
+                                     * update local sharedPreferences
+                                     */
+                                    allRecords.remove(index);
+                                    sumList.remove(index);
+                                    if (size == deleteId.size()) {
+                                        // if clear all monthly records
+                                        allDates.remove(index);
+                                        util.putString(Constant.ALL_DATES, gson.toJson(allDates));
+                                    } else {
+                                        // update local data
+                                        for (int i = records.size() - 1; i >= 0; i--) {
+                                            for (int id : deleteId) {
+                                                FinanceRecord record = records.get(i);
+                                                if (record.getId() == id) {
+                                                    if (record.getInOut() == 0) {
+                                                        sum.setTotalIn(sum.getTotalIn() - Integer.parseInt(record.getCurrencyValue()));
+                                                    } else {
+                                                        sum.setTotalOut(sum.getTotalOut() - Integer.parseInt(record.getCurrencyValue()));
+                                                    }
+                                                    records.remove(i);
+                                                    break;
                                                 }
-                                                records.remove(i);
-                                                break;
                                             }
                                         }
+                                        allRecords.add(index, records);
+                                        sumList.add(index, sum);
                                     }
-                                    allRecords.add(index, records);
-                                    sumList.add(index, sum);
-                                }
-                                util.putString(Constant.FINANCE_SUM, gson.toJson(sumList));
-                                util.putString(Constant.MONTHLY_RECORD, gson.toJson(allRecords));
+                                    util.putString(Constant.FINANCE_SUM, gson.toJson(sumList));
+                                    util.putString(Constant.MONTHLY_RECORD, gson.toJson(allRecords));
 
-                                if (allRecords.size() == 0 || allRecords == null) {
-                                    util.putBoolean(Constant.HAS_RECORD, false);
+                                    if (allRecords.size() == 0 || allRecords == null) {
+                                        util.putBoolean(Constant.HAS_RECORD, false);
+                                    }
+                                    util.putBoolean(Constant.REFRESH_NOW, true);
+                                    Navigation.findNavController(v).navigateUp();
                                 }
-                                util.putBoolean(Constant.REFRESH_NOW, true);
-                                Navigation.findNavController(v).navigateUp();
-                            }
-                        })
-                        .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).show();
+                            })
+                            .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).show();
+                }
             }
         });
 

@@ -17,35 +17,54 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.hotspots.NewsContentWebView"></activity>
-        <activity
-            android:name=".ui.study.StudyClassTableAboutActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
-            android:name=".ui.study.AddCourseActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
-            android:name=".ui.finance.RecordNowActivity"
-            android:label="@string/new_record" />
-        <activity
-            android:name=".ui.me.PersonalInfoCenterActivity"
-            android:label="@string/personal" />
-        <activity
-            android:name=".AppBottomActivity"
-            android:label="@string/title_activity_app_bottom">
+        <activity android:name=".ui.study.StudyReminderAddActivity"></activity>
 
-        </activity>
-        <activity android:name=".Forget2Activity" />
-        <activity android:name=".Forget1Activity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4386730469126916~2049038834" />
+
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".ui.hotspots.NewsContentWebView"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.study.StudyClassTableAboutActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".ui.study.AddCourseActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".ui.finance.RecordNowActivity"
+            android:label="@string/new_record"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.me.PersonalInfoCenterActivity"
+            android:label="@string/personal"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".AppBottomActivity"
+            android:label="@string/title_activity_app_bottom"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Forget2Activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Forget1Activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

@@ -16,33 +16,33 @@
                 android:id="@+id/newsFinance"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:textSize="20sp"
-                android:text="财经"
+                android:textSize="19sp"
+                android:text="@string/newsFinance"
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/newsFilm"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:textSize="20sp"
-                android:text="电影"
-                android:gravity="center"
+                android:textSize="19sp"
+                android:text="@string/newsFilm"
+                android:gravity="center_horizontal"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/newsEntertainment"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:textSize="20sp"
-                android:text="娱乐"
-                android:gravity="center"
+                android:textSize="19sp"
+                android:text="@string/newsEntertainment"
+                android:gravity="center_horizontal"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/newsTV"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:textSize="20sp"
-                android:text="电视"
-                android:gravity="center"
+                android:textSize="19sp"
+                android:text="@string/newsTv"
+                android:gravity="center_horizontal"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <androidx.viewpager.widget.ViewPager

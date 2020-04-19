@@ -10,6 +10,7 @@ public class Course implements Serializable {
     private int day;
     private int classStart;
     private int classEnd;
+//    private User user;
 
     public Course(String courseName, String teacher, String classRoom, int day, int classStart, int classEnd) {
         this.courseName = courseName;
@@ -18,6 +19,9 @@ public class Course implements Serializable {
         this.day = day;
         this.classStart = classStart;
         this.classEnd = classEnd;
+//        User temp = new User();
+//        temp.setId(uid);
+//        this.user = temp;
     }
 
     public String getCourseName() {
@@ -52,19 +56,40 @@ public class Course implements Serializable {
         this.day = day;
     }
 
-    public int getStart() {
+    public int getClassStart() {
         return classStart;
     }
 
-    public void setStart(int classStart) {
-        this.classEnd = classStart;
+    public void setClassStart(int classStart) {
+        this.classStart = classStart;
     }
 
-    public int getEnd() {
+    public int getClassEnd() {
         return classEnd;
     }
 
-    public void setEnd(int classEnd) {
+    public void setClassEnd(int classEnd) {
         this.classEnd = classEnd;
+    }
+
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseName='" + courseName + '\'' +
+                ", teacher='" + teacher + '\'' +
+                ", classRoom='" + classRoom + '\'' +
+                ", day=" + day +
+                ", classStart=" + classStart +
+                ", classEnd=" + classEnd +
+                '}';
     }
 }

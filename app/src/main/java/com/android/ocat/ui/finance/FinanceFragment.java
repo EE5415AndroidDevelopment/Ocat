@@ -60,17 +60,19 @@ public class FinanceFragment extends Fragment {
         len = countries.length;
         currency_code = getResources().getStringArray(R.array.currency_code);
         currency_rate = new String[len];
-        flags = new int[]{R.drawable.china, R.drawable.china, R.drawable.canada, R.drawable.australia, R.drawable.usa};
-        FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(getContext(), util);
-        financeAlgorithm.requestCurrencyRate(currency_code);
-        for (int i = 0; i < len; i++) {
-            currency_rate[i] = util.getString(currency_code[i]);
+        flags = new int[]{R.drawable.china, R.drawable.hongkong, R.drawable.canada, R.drawable.australia, R.drawable.usa, R.drawable.japan};
+
+        if (util.getBoolean(Constant.HAS_CONNECTION)) {
+            FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(getContext(), util);
+            financeAlgorithm.requestCurrencyRate(currency_code);
+            for (int i = 0; i < len; i++) {
+                currency_rate[i] = util.getString(currency_code[i]);
+            }
         }
 
         // ListView
         mFinanceRateListAdapter = new FinanceRateListAdapter(getContext(), countries, currency_code, currency_rate, flags);
         mListView.setAdapter(mFinanceRateListAdapter);
-        mListView = view.findViewById(R.id.listView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -112,8 +114,10 @@ public class FinanceFragment extends Fragment {
         super.onResume();
         // request server, over-write data
         if (isStop) {
-            FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(getContext(), util);
-            financeAlgorithm.requestCurrencyRate(currency_code);
+            if (util.getBoolean(Constant.HAS_CONNECTION)) {
+                FinanceAlgorithm financeAlgorithm = new FinanceAlgorithm(getContext(), util);
+                financeAlgorithm.requestCurrencyRate(currency_code);
+            }
         }
     }
 

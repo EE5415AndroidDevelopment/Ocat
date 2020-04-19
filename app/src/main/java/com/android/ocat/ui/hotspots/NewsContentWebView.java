@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.ocat.R;
@@ -40,7 +41,6 @@ public class NewsContentWebView extends AppCompatActivity {
         WebView webView=(WebView) findViewById(R.id.web_view);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
-        //支持缩放
 
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(address);
@@ -51,7 +51,7 @@ public class NewsContentWebView extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null)
             actionBar.hide();
-        ImageButton button=(ImageButton)findViewById(R.id.back);
+        ImageView button=(ImageView) findViewById(R.id.back);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -76,25 +76,25 @@ public class NewsContentWebView extends AppCompatActivity {
                     });
 
                     Document doc = Jsoup.connect(href).get();
-                    Log.d("12345",doc.html());
-                    Log.d("kh1",""+href);
+//                    Log.d("12345",doc.html());
+//                    Log.d("kh1",""+href);
 
 
                     Element head=doc.select("p").first();
-                    Log.d("head",""+head.text());
+//                    Log.d("head",""+head.text());
                     title=head.select("h1.title").first().text();
                     author =head.select("span.author").first().text();
                     time =head.select("span.time.js-time").first().text();
                     imgAdress=doc.getElementsByTag("a[href]").first().attr("href");
-                    Log.d("bhk123",title);
-                    Log.d("img",imgAdress);
+//                    Log.d("bhk123",title);
+//                    Log.d("img",imgAdress);
                     Element content=doc.select("div.content.fontsmall").first();
-                    Log.d("bhk456",content.text());
+//                    Log.d("bhk456",content.text());
                     Elements paragraphs=content.select("p");
                     buffer.append("\n");
                     for(Element para:paragraphs){
                         buffer.append("     "+para.text()+"\n\n");
-                        Log.d("p_p",para.text());
+//                        Log.d("p_p",para.text());
                     }
                     runOnUiThread(new Runnable() {
                         @Override

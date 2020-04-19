@@ -115,7 +115,7 @@ public class NewsFinanceFragment extends Fragment {
                 one.setTitle(object.getString("title"));
                 one.setContentAddress(object.getString("url"));
 //                Log.d("contentadress",one.getContentAddress());
-                if(one.getContentAddress().toCharArray()[0]=='0')//对无用的内容地址object进筛选
+                if(one.getContentAddress().toCharArray()[0]=='0')
                 {
 //                    Log.d("goodnull","truetrue!+");
                     continue;
@@ -150,15 +150,8 @@ public class NewsFinanceFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        System.out.println("+++++++++++++++++++++NewsFinance Stop++++++++++++++++++++++++=");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        System.out.println("+++++++++++++++++++++NewsFinance OnResume++++++++++++++++++++++++=");
-
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================NewsFinanceFragment Destroy===============");
     }
 }

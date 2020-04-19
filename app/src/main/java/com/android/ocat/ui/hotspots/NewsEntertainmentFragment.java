@@ -103,7 +103,7 @@ public class NewsEntertainmentFragment extends Fragment {
                 one.setTitle(object.getString("title"));
                 one.setContentAddress(object.getString("url"));
 //                Log.d("contentadress",one.getContentAddress());
-                if(one.getContentAddress().toCharArray()[0]=='0')//对无用的内容地址object进筛选
+                if(one.getContentAddress().toCharArray()[0]=='0')
                 {
 //                    Log.d("goodnull","truetrue!+");
                     continue;
@@ -135,6 +135,12 @@ public class NewsEntertainmentFragment extends Fragment {
             e.printStackTrace();
 
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("==================NewsEntertainmentFragment Destroy===============");
     }
 
 }
