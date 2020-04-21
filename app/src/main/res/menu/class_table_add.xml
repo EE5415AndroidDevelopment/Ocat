@@ -5,7 +5,7 @@
         android:id="@+id/classAdd"
         app:showAsAction="always"
         android:title="@string/add"
-        android:icon="@drawable/study_add">
+        android:icon="@mipmap/menu_add_">
     </item>
 
 <!--    <item-->

@@ -85,7 +85,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
                     case 1:
                         resetColor();
                         toolbar.getMenu().clear();
-                        toolbar.inflateMenu(R.menu.reminder_add);
+                        toolbar.inflateMenu(R.menu.reminder_all);
                         reminderTextView.setTextColor(getResources().getColor(R.color.darkOrange));
                         viewPager.setCurrentItem(1);
                         break;
@@ -150,7 +150,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
             case R.id.reminder:
                 resetColor();
                 toolbar.getMenu().clear();
-                toolbar.inflateMenu(R.menu.reminder_add);
+                toolbar.inflateMenu(R.menu.reminder_all);
                 reminderTextView.setTextColor(getResources().getColor(R.color.darkOrange));
                 viewPager.setCurrentItem(1);
                 break;

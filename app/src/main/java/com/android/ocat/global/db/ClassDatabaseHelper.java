@@ -1,6 +1,7 @@
 package com.android.ocat.global.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -25,6 +26,12 @@ public class ClassDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public Cursor selectByDayOfWeek(int value) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from courses where day = ?", new String[]{Integer.toString(value)});
+        return res;
     }
 
     public void clearAll() {

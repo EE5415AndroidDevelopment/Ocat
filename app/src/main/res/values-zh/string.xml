@@ -67,6 +67,7 @@
     <string name="warning_message_submit">任何修改将被永久提交\n\n此操作不可逆</string>
     <string name="warning_message_delete">你想要删除本条记录吗？</string>
     <string name="allPlans">所有计划</string>
+    <string name="all">全部</string>
 
 
     <string name="title_activity_app_bottom">AppBottomActivity</string>

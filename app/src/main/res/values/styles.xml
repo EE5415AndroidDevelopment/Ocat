@@ -16,6 +16,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="WelcomeTheme" parent="Theme.Design.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/colorPrimary</item>
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
     <!-- Base application theme. -->
 <!--    <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">-->
 <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->

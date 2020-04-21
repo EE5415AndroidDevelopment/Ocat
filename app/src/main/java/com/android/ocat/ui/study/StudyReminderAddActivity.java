@@ -3,6 +3,7 @@ package com.android.ocat.ui.study;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.android.ocat.MainActivity;
 import com.android.ocat.R;
+import com.android.ocat.global.db.ReminderDataBaseHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +28,7 @@ public class StudyReminderAddActivity extends AppCompatActivity{
     private List<String> dataYear,dataMonth, dataDay;
     private ArrayAdapter<String> adapterSpYear,adapterSpMonth, adapterSpDay;
     private int noteId;
+    private ReminderDataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public class StudyReminderAddActivity extends AppCompatActivity{
         dataYear = new ArrayList<>();
         dataMonth = new ArrayList<>();
         dataDay = new ArrayList<>();
+
+        dataBaseHelper = new ReminderDataBaseHelper(StudyReminderAddActivity.this, "reminder.db", null, 1);
 
         // 年份设定为当年的前后20年
         Calendar cal = Calendar.getInstance();
@@ -85,22 +91,57 @@ public class StudyReminderAddActivity extends AppCompatActivity{
         Intent i = getIntent();
         noteId = i.getIntExtra("taskId", -1);
         if (noteId != -1) {
-            editText.setText(StudyReminderToDoListFragment.tasks.get(noteId));
+            editText.setText(StudyReminderFragment.tasks.get(noteId));
+//            System.out.println("+++++++++++++++DATE++++++++++++++++++++++++++");
+//            String date = StudyReminderFragment.taskDates.get(noteId);
+//            String[] dateArr = date.split("\\.");
+//            spMonth.setSelection(Integer.parseInt(dateArr[1]) - 1);
+//            spDay.setSelection(Integer.parseInt(dateArr[2]) - 1);
         }
     }
 
     public void addTask(View view) {
+        // user input
         String year = spYear.getSelectedItem().toString();
         String month = spMonth.getSelectedItem().toString();
         String day = spDay.getSelectedItem().toString();
-        String value = editText.getText().toString();
+        String detail = editText.getText().toString();
 
-        if (noteId != -1) {
-            StudyReminderToDoListFragment.tasks.set(noteId, value);
-        } else {
-            StudyReminderToDoListFragment.tasks.add(value);
+        // string substring
+        if ('0' == month.charAt(0)) {
+            month = month.substring(1);
         }
-        StudyReminderToDoListFragment.arrayAdapter.notifyDataSetChanged();
+        if ('0' == day.charAt(0)) {
+            day = day.substring(1);
+        }
+        String date = year + "." + month + "." + day;
+
+        // save to List, update DB
+        if (noteId != -1) {
+            dataBaseHelper.update(StudyReminderFragment.taskIds.get(noteId), date, detail);
+            StudyReminderFragment.tasks.set(noteId, detail);
+        } else {
+            dataBaseHelper.insert(date, detail);
+
+            // re-load DB to gain ID
+            StudyReminderFragment.tasks.clear();
+            StudyReminderFragment.taskIds.clear();
+//            StudyReminderFragment.taskDates.clear();
+            Cursor cursor = dataBaseHelper.selectAll();
+            if (cursor.moveToFirst()) {
+                do {
+                    StudyReminderFragment.tasks.add(cursor.getString(cursor.getColumnIndex("date"))+" "+cursor.getString(cursor.getColumnIndex("detail")));
+                    StudyReminderFragment.taskIds.add(cursor.getInt(cursor.getColumnIndex("id")));
+//                    StudyReminderFragment.taskDates.add(cursor.getString(cursor.getColumnIndex("date")));
+                } while (cursor.moveToNext());
+            }
+        }
+
+        ToDoListRecycleViewFragment.adapter.notifyDataSetChanged();
+        finish();
+    }
+
+    public void cancel(View view) {
         finish();
     }
 }

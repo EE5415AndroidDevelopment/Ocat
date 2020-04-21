@@ -118,7 +118,7 @@ public class StudyClassTableFragment extends Fragment {
         user = gson.fromJson(userJson, User.class);
         uid = user.getId();
 
-        databaseHelper = new ClassDatabaseHelper(view.getContext(), "database.db", null, 1);
+        databaseHelper = new ClassDatabaseHelper(view.getContext(), "class.db", null, 1);
 
         //从数据库读取数据
         loadData();
@@ -363,6 +363,7 @@ public class StudyClassTableFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println("+++++++++++++StudyClassTableFragment ON RESUME++++++++++++");
     }
 
     @Override

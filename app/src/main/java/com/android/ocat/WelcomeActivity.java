@@ -42,7 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 finish();
             }
         };
-        handler.sendEmptyMessageDelayed(0, 5000);
+        handler.sendEmptyMessageDelayed(0, 3000);
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override

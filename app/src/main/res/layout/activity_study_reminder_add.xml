@@ -82,10 +82,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="SAVE"
+            android:text="@string/submit"
             android:gravity="center"
-            android:textSize="20sp"
-            android:onClick="addTask"/>
+            android:onClick="addTask"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorButtonText"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/cancel"
+            android:gravity="center"
+            android:onClick="cancel"/>
 
     </LinearLayout>
 

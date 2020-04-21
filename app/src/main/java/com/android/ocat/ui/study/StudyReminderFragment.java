@@ -16,21 +16,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 
+import com.android.ocat.MainActivity;
 import com.android.ocat.R;
 import com.android.ocat.global.db.ClassDatabaseHelper;
+import com.android.ocat.global.db.ReminderDataBaseHelper;
 import com.android.ocat.global.entity.Course;
 import com.android.ocat.global.utils.SharedPreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class StudyReminderFragment extends Fragment {
+//    static List<String> taskDates = new ArrayList<>();
+    static List<String> tasks = new ArrayList<>();
+    static List<Integer> taskIds = new ArrayList<>();
     private int year, month, day;//获取今天的日月年
     private DatePicker datePicker;
     private Toolbar toolbar;
-    private SharedPreferenceUtil util;
     private View view;
+    private ReminderDataBaseHelper reminderDataBaseHelper;
+    private ClassDatabaseHelper classDatabaseHelper;
+    private Cursor cursor;
 
 //    // update toolbar menu when fragment is visible
     @Override
@@ -43,7 +51,7 @@ public class StudyReminderFragment extends Fragment {
                 public boolean onMenuItemClick(MenuItem item) {
                     int id = item.getItemId();
                     switch (id) {
-                        case R.id.reminderAdd:
+                        case R.id.reminderAll:
                             Navigation.findNavController(view).navigate(R.id.navigation_toDoList);
                             return true;
                     }
@@ -61,42 +69,27 @@ public class StudyReminderFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_study_reminder, container, false);
         setHasOptionsMenu(true);
 
+        reminderDataBaseHelper = new ReminderDataBaseHelper(view.getContext(), "reminder.db", null, 1);
+        classDatabaseHelper = new ClassDatabaseHelper(view.getContext(), "class.db", null, 1);
         datePicker = view.findViewById(R.id.datePicker);
 
-        /**
-         * 方式一：直接调用（）
-         */
-//        System.out.println("++++++++++++++++++CourseList++++++++++++++++++++++");
-//        List<Course> coursesList = StudyClassTableFragment.coursesList;
-//        for (Course course : coursesList) {
-//            System.out.println(course);
-//        }
-        /**
-         *  方式二：数据库读取（）
-         */
-        ClassDatabaseHelper databaseHelper = new ClassDatabaseHelper(view.getContext(), "database.db", null, 1);
-//        DatabaseHelper databaseHelper = StudyClassTableFragment.databaseHelper;
-
-        List<Course> coursesList = new ArrayList<>(); //课程列表
-        SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from courses", null);
+        // load whole DB
+        tasks.clear();
+        taskIds.clear();
+//        taskDates.clear();
+        Cursor cursor = reminderDataBaseHelper.selectAll();
         if (cursor.moveToFirst()) {
             do {
-                coursesList.add(new Course(
-                        cursor.getString(cursor.getColumnIndex("course_name")),
-                        cursor.getString(cursor.getColumnIndex("teacher")),
-                        cursor.getString(cursor.getColumnIndex("class_room")),
-                        cursor.getInt(cursor.getColumnIndex("day")),
-                        cursor.getInt(cursor.getColumnIndex("class_start")),
-                        cursor.getInt(cursor.getColumnIndex("class_end"))));
-            } while(cursor.moveToNext());
-        }
-        cursor.close();
-        for (Course course : coursesList) {
-            System.out.println(course);
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String detail = cursor.getString(cursor.getColumnIndex("detail"));
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+                tasks.add(date + " " + detail);
+                taskIds.add(id);
+//                taskDates.add(date);
+            } while (cursor.moveToNext());
         }
 
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         /**
          * 初始化时获得日期
          */
@@ -121,23 +114,53 @@ public class StudyReminderFragment extends Fragment {
     }
 
     private void shoulddo(int i, int i1, int i2) {
-        String  str=i+"年"+(1+i1)+"月"+i2+'日';
-        //此处可以导入已经储存好的课程日期及事件名称，若能匹配上则在窗口中显示今日事件。
+        // gain Calendar onClick date
+        String str = i + "." + (1 + i1) + "." + i2;
+        Date dateOfWeek = new Date();
+        dateOfWeek.setYear(i);
+        dateOfWeek.setMonth(i1);
+        dateOfWeek.setDate(i2);
 
-        /*if(能匹配上)*/
+        StringBuilder sb = new StringBuilder();
 
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(getContext());
-        builder.setTitle("今日安排");
-        builder.setMessage(str);//此处放入事件名称
-        builder.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    { }
-                });
-        builder.create();
-        builder.show();
+        // read reminderDB by date
+        cursor = reminderDataBaseHelper.selectByDate(str);
+        if (cursor.moveToFirst()) {
+            sb.append(getResources().getString(R.string.reminder));
+            sb.append("\n");
+            do {
+                String detail = cursor.getString(cursor.getColumnIndex("detail"));
+                sb.append(detail);
+                sb.append("\n");
+            } while (cursor.moveToNext());
+        }
+
+        // read classDB
+        cursor = classDatabaseHelper.selectByDayOfWeek(dateOfWeek.getDay() - 1);
+        if (cursor.moveToFirst()) {
+            sb.append(getResources().getString(R.string.class_table));
+            sb.append("\n");
+            do {
+                String courseName = cursor.getString(cursor.getColumnIndex("course_name"));
+                sb.append(courseName);
+                sb.append("\n");
+            } while (cursor.moveToNext());
+        }
+
+        // show alert window
+        if (sb.length() != 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(str);
+            builder.setMessage(sb.toString());//打印list
+            builder.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+            builder.create();
+            builder.show();
+        }
     }
 
     @Override
@@ -145,5 +168,4 @@ public class StudyReminderFragment extends Fragment {
         super.onDestroy();
         System.out.println("==================StudyReminderFragment Destroy===============");
     }
-
 }

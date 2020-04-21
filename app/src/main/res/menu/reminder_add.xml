@@ -8,13 +8,6 @@
         android:orderInCategory="100"
         android:title="@string/add"
         app:showAsAction="always"
+        android:icon="@mipmap/menu_add_"
         />
-
-<!--    <item-->
-<!--        android:id="@+id/reminderAllPlans"-->
-<!--        android:title="@string/allPlans"-->
-<!--        android:orderInCategory="1"-->
-<!--        app:showAsAction="never" />-->
-
-
 </menu>

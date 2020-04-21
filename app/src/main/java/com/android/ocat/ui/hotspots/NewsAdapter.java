@@ -37,7 +37,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
         if(mContext==null){
             mContext=parent.getContext();
         }
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_new_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news_new,parent,false);
         final ViewHolder holder =new ViewHolder(view);
         holder.NewsImage.setOnClickListener(new View.OnClickListener() {
             @Override

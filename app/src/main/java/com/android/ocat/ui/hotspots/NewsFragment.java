@@ -15,13 +15,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.ocat.R;
+import com.android.ocat.global.db.ClassDatabaseHelper;
+import com.android.ocat.global.db.ReminderDataBaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewsFragment extends Fragment implements View.OnClickListener {
     private ViewPager viewPager;
-    static List<TextView> tag;
     List<Fragment> viewList;
     static int tagPointer = 0;
     static ProgressDialog progressDialog;
