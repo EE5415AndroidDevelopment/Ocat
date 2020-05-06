@@ -66,31 +66,31 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
             }
         };
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
+    }
 
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        resetColor();
-                        toolbar.getMenu().clear();
-                        toolbar.inflateMenu(R.menu.class_table_add);
-                        classTableTextView.setTextColor(getResources().getColor(R.color.darkOrange));
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case 1:
-                        resetColor();
-                        toolbar.getMenu().clear();
-                        toolbar.inflateMenu(R.menu.reminder_all);
-                        reminderTextView.setTextColor(getResources().getColor(R.color.darkOrange));
-                        viewPager.setCurrentItem(1);
-                        break;
-                }
-            }
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+                resetColor();
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.class_table_add);
+                classTableTextView.setTextColor(getResources().getColor(R.color.darkOrange));
+                viewPager.setCurrentItem(0);
+                break;
+            case 1:
+                resetColor();
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.reminder_all);
+                reminderTextView.setTextColor(getResources().getColor(R.color.darkOrange));
+                viewPager.setCurrentItem(1);
+                break;
+        }
+    }
 
             @Override
             public void onPageScrollStateChanged(int state) {

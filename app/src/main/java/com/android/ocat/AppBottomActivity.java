@@ -29,15 +29,15 @@ public class AppBottomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_bottom);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_hotspots, R.id.navigation_finance, R.id.navigation_me, R.id.navigation_study)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+BottomNavigationView navView = findViewById(R.id.nav_view);
+// Passing each menu ID as a set of Ids because each
+// menu should be considered as top level destinations.
+AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        R.id.navigation_hotspots, R.id.navigation_finance, R.id.navigation_me, R.id.navigation_study)
+        .build();
+NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+NavigationUI.setupWithNavController(navView, navController);
 
         /**
          * currency_rate data parsing
